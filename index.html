@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TurTLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates</title>
+  <meta name="description" content="TurTLES is a 13 TB dataset of high-fidelity implicit large-eddy simulations of three-dimensional turbulent cylinder wakes, designed to benchmark neural PDE surrogates on long-horizon, irregular-mesh, and physically realistic turbulent flows." />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="stylesheet" href="static/css/styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1 class="title">TurTLES</h1>
+      <p class="subtitle">A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates</p>
+
+      <p class="authors">Anonymous Authors</p>
+      <p class="venue">Submission to NeurIPS 2026 &middot; Datasets and Benchmarks Track</p>
+
+      <nav class="links">
+        <a class="btn" href="static/paper.pdf">Paper (PDF)</a>
+        <a class="btn btn-disabled" aria-disabled="true">Code (released upon acceptance)</a>
+        <a class="btn btn-disabled" aria-disabled="true">Dataset (released upon acceptance)</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container content">
+
+    <section id="teaser">
+      <video class="teaser-video" autoplay muted loop playsinline>
+        <source src="static/videos/teaser.mp4" type="video/mp4" />
+      </video>
+      <p class="caption">
+        Vorticity field of a representative trajectory in the TurTLES benchmark.
+        Each trajectory consists of 400 time steps of 3D turbulent wake dynamics
+        sampled on irregular point clouds with 3&ndash;9 million points per frame.
+      </p>
+    </section>
+
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <p>
+        Machine-learning surrogates are increasingly used to accelerate computational
+        fluid dynamics (CFD), yet progress is limited by the lack of benchmarks
+        capturing realistic, time-dependent turbulent flows. We introduce <strong>TurTLES</strong>,
+        a 13 TB dataset of high-fidelity implicit large-eddy simulations of
+        three-dimensional turbulent cylinder wakes in the shear-layer transition regime.
+        The dataset contains 380 trajectories of 400 time steps each, with 3&ndash;9 million
+        points per frame sampled on irregular point clouds, spanning variations in
+        geometry, Reynolds number, and angle of attack. Unlike existing datasets,
+        TurTLES captures fully three-dimensional turbulence with an active energy
+        cascade driven by vortex stretching, combining (i) dense irregular meshes,
+        (ii) long-horizon temporal dynamics, and (iii) physically realistic turbulent
+        behavior. We benchmark state-of-the-art neural operators on long autoregressive
+        rollouts and identify key failure modes, including temporal instability,
+        loss of small-scale energy, and challenges in learning on large irregular
+        domains. TurTLES provides a new standard benchmark for evaluating surrogate
+        models in high-resolution, industrial-scale CFD regimes.
+      </p>
+    </section>
+
+    <section id="highlights">
+      <h2>Key Properties</h2>
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="stat">13 TB</div>
+          <div class="stat-label">High-fidelity 3D iLES data</div>
+        </div>
+        <div class="card">
+          <div class="stat">380</div>
+          <div class="stat-label">Trajectories &times; 400 time steps</div>
+        </div>
+        <div class="card">
+          <div class="stat">3&ndash;9 M</div>
+          <div class="stat-label">Points per frame, irregular mesh</div>
+        </div>
+        <div class="card">
+          <div class="stat">4-D</div>
+          <div class="stat-label">Parameter space (geometry, Re, &alpha;)</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dataset">
+      <h2>Dataset Overview</h2>
+      <p>
+        TurTLES is constructed within a four-dimensional parameter space: geometry
+        is parameterised through the super-ellipse (Lam&eacute; curve) family, with
+        aspect ratio <em>AR&nbsp;=&nbsp;a/b</em>, exponent <em>n&nbsp;&isin;&nbsp;{1,&nbsp;2,&nbsp;5,&nbsp;&infin;}</em>
+        (diamond, circular, rounded rectangle, rectangle), Reynolds number
+        <em>Re&nbsp;&isin;&nbsp;[1000,&nbsp;3900]</em>, and inflow angle of attack
+        <em>&alpha;&nbsp;&isin;&nbsp;[0&deg;,&nbsp;45&deg;]</em>. Samples are drawn from a Sobol&rsquo; sequence
+        to evenly cover the hypercube. Each case is solved using a high-order Flux
+        Reconstruction iLES scheme on a Gmsh-generated unstructured mesh extruded
+        into the span-wise direction.
+      </p>
+      <figure>
+        <img src="static/images/parameter_space.png" alt="Parameter space overview: geometry definitions, Sobol sample distribution, and parameter histograms." />
+        <figcaption>
+          Overview of the four-dimensional parameter sampling space:
+          super-elliptical geometries, the 380 Sobol samples in (Re, &alpha;, AR),
+          and histograms of each parameter.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="videos">
+      <h2>Trajectory Gallery</h2>
+      <p>
+        A selection of trajectories illustrating the geometric and flow-regime
+        diversity of the benchmark. All clips show the spanwise vorticity field
+        on a mid-span plane.
+      </p>
+
+      <div class="grid grid-2 video-grid">
+        <figure class="video-card">
+          <video controls muted loop playsinline preload="metadata">
+            <source src="static/videos/circle_re3900.mp4" type="video/mp4" />
+          </video>
+          <figcaption>
+            <strong>Circular cylinder</strong> &middot; <em>n</em>&nbsp;=&nbsp;2,
+            <em>AR</em>&nbsp;=&nbsp;1, <em>Re</em>&nbsp;=&nbsp;3900, <em>&alpha;</em>&nbsp;=&nbsp;0&deg;.
+            Canonical validation case; fully turbulent near wake.
+          </figcaption>
+        </figure>
+
+        <figure class="video-card">
+          <video controls muted loop playsinline preload="metadata">
+            <source src="static/videos/square_re2000.mp4" type="video/mp4" />
+          </video>
+          <figcaption>
+            <strong>Square cylinder</strong> &middot; <em>n</em>&nbsp;=&nbsp;&infin;,
+            <em>AR</em>&nbsp;=&nbsp;1, <em>Re</em>&nbsp;=&nbsp;2000, <em>&alpha;</em>&nbsp;=&nbsp;0&deg;.
+            Sharp-edge separation drives strong shedding.
+          </figcaption>
+        </figure>
+
+        <figure class="video-card">
+          <video controls muted loop playsinline preload="metadata">
+            <source src="static/videos/rectangle_re3000.mp4" type="video/mp4" />
+          </video>
+          <figcaption>
+            <strong>Elongated rectangle</strong> &middot; <em>n</em>&nbsp;=&nbsp;&infin;,
+            <em>AR</em>&nbsp;=&nbsp;2.5, <em>Re</em>&nbsp;=&nbsp;3000, <em>&alpha;</em>&nbsp;=&nbsp;0&deg;.
+            Reattachment and trailing-edge shedding.
+          </figcaption>
+        </figure>
+
+        <figure class="video-card">
+          <video controls muted loop playsinline preload="metadata">
+            <source src="static/videos/diamond_alpha30.mp4" type="video/mp4" />
+          </video>
+          <figcaption>
+            <strong>Diamond geometry</strong> &middot; <em>n</em>&nbsp;=&nbsp;1,
+            <em>&alpha;</em>&nbsp;=&nbsp;30&deg;.
+            Asymmetric separation and skewed wake topology.
+          </figcaption>
+        </figure>
+
+        <figure class="video-card">
+          <video controls muted loop playsinline preload="metadata">
+            <source src="static/videos/lowre_laminar.mp4" type="video/mp4" />
+          </video>
+          <figcaption>
+            <strong>Low Reynolds regime</strong> &middot; <em>Re</em>&nbsp;=&nbsp;1000.
+            Subcritical wake near the onset of three-dimensional instability.
+          </figcaption>
+        </figure>
+
+        <figure class="video-card">
+          <video controls muted loop playsinline preload="metadata">
+            <source src="static/videos/3d_isosurface.mp4" type="video/mp4" />
+          </video>
+          <figcaption>
+            <strong>3D Q-criterion isosurface</strong>.
+            Vortex stretching and span-wise structure breakdown driving
+            the turbulent cascade.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="contributions">
+      <h2>Contributions</h2>
+      <ol>
+        <li>
+          <strong>Dense irregular 3D data.</strong> Millions of points per frame on
+          unstructured meshes, beyond the resolution of regular-grid or coarse
+          point-cloud benchmarks.
+        </li>
+        <li>
+          <strong>Long-horizon evaluation.</strong> Hundreds of autoregressive time
+          steps in chaotic, geometry-dependent wakes.
+        </li>
+        <li>
+          <strong>Physically grounded assessment.</strong> Fluctuation statistics,
+          near-wake spectra, and intermittent shedding behavior expose whether
+          surrogates resolve real turbulent content rather than minimising
+          field-wise error.
+        </li>
+      </ol>
+    </section>
+
+    <section id="benchmark">
+      <h2>Benchmarks</h2>
+      <p>
+        We evaluate state-of-the-art neural operators on long autoregressive
+        rollouts and identify recurring failure modes: temporal instability,
+        loss of small-scale energy, and degradation on large irregular domains.
+        Full results, training protocols, and evaluation metrics are reported
+        in the paper.
+      </p>
+    </section>
+
+    <section id="bibtex">
+      <h2>Citation</h2>
+      <pre class="bibtex">@inproceedings{turtles2026,
+  title     = {TurTLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates},
+  author    = {Anonymous Authors},
+  booktitle = {Submitted to NeurIPS 2026 Datasets and Benchmarks Track},
+  year      = {2026},
+  note      = {Under double-blind review}
+}</pre>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>
+        Anonymous project page for double-blind review.
+        Author identities, code, and dataset will be released upon acceptance.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
