@@ -28,13 +28,16 @@
   <main class="container content">
 
     <section id="teaser">
-      <video class="teaser-video" autoplay muted loop playsinline>
-        <source src="static/videos/teaser.mp4" type="video/mp4" />
+      <video class="teaser-video" autoplay muted loop playsinline preload="metadata">
+        <source src="static/videos/Re3101_alpha31_a1p46_n2_u.mp4" type="video/mp4" />
       </video>
       <p class="caption">
-        Vorticity field of a representative trajectory in the TurTLES benchmark.
-        Each trajectory consists of 400 time steps of 3D turbulent wake dynamics
-        sampled on irregular point clouds with 3&ndash;9 million points per frame.
+        Streamwise velocity <em>u</em> on a mid-span plane for an elliptical
+        cross-section (<em>n</em>&nbsp;=&nbsp;2, <em>a/D</em>&nbsp;=&nbsp;1.46) at
+        <em>Re</em>&nbsp;=&nbsp;3101 and angle of attack <em>&alpha;</em>&nbsp;=&nbsp;31&deg;.
+        Each TurTLES trajectory comprises 400 time steps of three-dimensional
+        wake dynamics sampled on irregular point clouds with 3&ndash;9 million
+        points per frame.
       </p>
     </section>
 
@@ -103,82 +106,6 @@
           and histograms of each parameter.
         </figcaption>
       </figure>
-    </section>
-
-    <section id="videos">
-      <h2>Trajectory Gallery</h2>
-      <p>
-        A selection of trajectories illustrating the geometric and flow-regime
-        diversity of the benchmark. All clips show the spanwise vorticity field
-        on a mid-span plane.
-      </p>
-
-      <div class="grid grid-2 video-grid">
-        <figure class="video-card">
-          <video controls muted loop playsinline preload="metadata">
-            <source src="static/videos/circle_re3900.mp4" type="video/mp4" />
-          </video>
-          <figcaption>
-            <strong>Circular cylinder</strong> &middot; <em>n</em>&nbsp;=&nbsp;2,
-            <em>AR</em>&nbsp;=&nbsp;1, <em>Re</em>&nbsp;=&nbsp;3900, <em>&alpha;</em>&nbsp;=&nbsp;0&deg;.
-            Canonical validation case; fully turbulent near wake.
-          </figcaption>
-        </figure>
-
-        <figure class="video-card">
-          <video controls muted loop playsinline preload="metadata">
-            <source src="static/videos/square_re2000.mp4" type="video/mp4" />
-          </video>
-          <figcaption>
-            <strong>Square cylinder</strong> &middot; <em>n</em>&nbsp;=&nbsp;&infin;,
-            <em>AR</em>&nbsp;=&nbsp;1, <em>Re</em>&nbsp;=&nbsp;2000, <em>&alpha;</em>&nbsp;=&nbsp;0&deg;.
-            Sharp-edge separation drives strong shedding.
-          </figcaption>
-        </figure>
-
-        <figure class="video-card">
-          <video controls muted loop playsinline preload="metadata">
-            <source src="static/videos/rectangle_re3000.mp4" type="video/mp4" />
-          </video>
-          <figcaption>
-            <strong>Elongated rectangle</strong> &middot; <em>n</em>&nbsp;=&nbsp;&infin;,
-            <em>AR</em>&nbsp;=&nbsp;2.5, <em>Re</em>&nbsp;=&nbsp;3000, <em>&alpha;</em>&nbsp;=&nbsp;0&deg;.
-            Reattachment and trailing-edge shedding.
-          </figcaption>
-        </figure>
-
-        <figure class="video-card">
-          <video controls muted loop playsinline preload="metadata">
-            <source src="static/videos/diamond_alpha30.mp4" type="video/mp4" />
-          </video>
-          <figcaption>
-            <strong>Diamond geometry</strong> &middot; <em>n</em>&nbsp;=&nbsp;1,
-            <em>&alpha;</em>&nbsp;=&nbsp;30&deg;.
-            Asymmetric separation and skewed wake topology.
-          </figcaption>
-        </figure>
-
-        <figure class="video-card">
-          <video controls muted loop playsinline preload="metadata">
-            <source src="static/videos/lowre_laminar.mp4" type="video/mp4" />
-          </video>
-          <figcaption>
-            <strong>Low Reynolds regime</strong> &middot; <em>Re</em>&nbsp;=&nbsp;1000.
-            Subcritical wake near the onset of three-dimensional instability.
-          </figcaption>
-        </figure>
-
-        <figure class="video-card">
-          <video controls muted loop playsinline preload="metadata">
-            <source src="static/videos/3d_isosurface.mp4" type="video/mp4" />
-          </video>
-          <figcaption>
-            <strong>3D Q-criterion isosurface</strong>.
-            Vortex stretching and span-wise structure breakdown driving
-            the turbulent cascade.
-          </figcaption>
-        </figure>
-      </div>
     </section>
 
     <section id="contributions">
