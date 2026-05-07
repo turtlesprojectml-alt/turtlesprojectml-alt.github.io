@@ -114,9 +114,50 @@
       <figure>
         <img src="static/images/parameter_space.png" alt="Parameter space overview: geometry definitions, Sobol sample distribution, and parameter histograms." />
         <figcaption>
-          Overview of the four-dimensional parameter sampling space:
-          super-elliptical geometries, the 380 Sobol samples in (Re, &alpha;, AR),
-          and histograms of each parameter.
+          <strong>Figure 1.</strong> Overview of the four-dimensional parameter
+          sampling space: super-elliptical geometries, the 380 Sobol samples in
+          (<em>Re</em>, <em>&alpha;</em>, <em>AR</em>), and histograms of each
+          parameter.
+        </figcaption>
+      </figure>
+
+      <figure>
+        <img src="static/images/figure2_domain.png" alt="Schematic overview of the simulation domain: 3D view with labelled boundaries and the 2D mesh in the xy-plane." />
+        <figcaption>
+          <strong>Figure 2.</strong> Schematic overview of the domain.
+          (a) Three-dimensional view illustrating the physical boundaries:
+          inlet (<strong>A</strong>), outlets (<strong>B</strong>&ndash;<strong>D</strong>),
+          object surface (<strong>E</strong>), and periodic side-walls
+          (<strong>F</strong>, <strong>G</strong>). (b) <em>xy</em>-plane of the
+          computational mesh, extended into three dimensions via a structured
+          extrusion in the span-wise (<em>z</em>) direction.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="data-structure">
+      <h2>Data Structure</h2>
+      <p>
+        Each case is stored as a single set of node coordinates plus solutions
+        at 400 time steps. A solution comprises the three-dimensional pressure
+        <em>p</em>, density <em>&rho;</em>, and velocity components
+        (<em>u</em>, <em>v</em>, <em>w</em>). Snapshots are restricted to nodes
+        inside the rectangular box <em>x/D</em>&nbsp;&isin;&nbsp;[&minus;3,&nbsp;10],
+        <em>y/D</em>&nbsp;&isin;&nbsp;[&minus;3.5,&nbsp;3.5],
+        <em>z/D</em>&nbsp;&isin;&nbsp;[0,&nbsp;2&pi;]. The sampling interval
+        <em>&Delta;t<sub>s</sub></em> is chosen so that the inertial range of
+        the turbulence spectrum is retained while keeping storage tractable.
+      </p>
+      <figure>
+        <img src="static/images/figure3_data_structure.png" alt="Diagram of a per-case directory: shared coordinates, 400 time-step solutions, and example renders of the u-velocity and pressure fields." />
+        <figcaption>
+          <strong>Figure 3.</strong> Overview of the flow case data structure.
+          Each case directory holds one set of node coordinates and the
+          corresponding solutions for all 400 time steps
+          (<em>t<sub>0</sub></em>, <em>t<sub>1</sub></em>, &hellip;,
+          <em>t<sub>f&thinsp;=&thinsp;399</sub></em>). Right: example renders of
+          the <em>u</em>-velocity and pressure fields for a single frame of
+          case <code>Re_3101_alpha31_a1p46_n2</code>.
         </figcaption>
       </figure>
     </section>
