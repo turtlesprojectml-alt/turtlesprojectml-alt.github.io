@@ -229,6 +229,135 @@ figcaption {
   font-family: "SF Mono", Menlo, Consolas, monospace;
 }
 
+/* ---------- Wide sections (teaser + catalogue) ---------- */
+
+.wide-section {
+  padding: 40px 0 24px;
+}
+
+.wide-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.teaser-grid {
+  gap: 20px;
+  margin-bottom: 14px;
+}
+
+.teaser-grid .video-card {
+  padding: 14px;
+}
+
+.teaser-grid .video-card video {
+  border-radius: 10px;
+}
+
+@media (max-width: 760px) {
+  .wide-inner { padding: 0 16px; }
+}
+
+/* ---------- Catalogue carousel ---------- */
+
+.catalogue-heading {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 16px 0 8px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.catalogue-intro {
+  color: var(--muted);
+  font-size: 15px;
+  margin: 0 0 18px;
+}
+
+.catalogue {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.cat-track {
+  flex: 1 1 auto;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cat-track::-webkit-scrollbar { height: 6px; }
+.cat-track::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.cat-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-width: 0;
+}
+
+.case-header {
+  margin-bottom: 12px;
+}
+
+.case-header h3 {
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+.case-meta {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 4px 0 0;
+}
+
+.cat-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--fg);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform .12s ease, opacity .12s ease, background .12s ease;
+}
+
+.cat-nav:hover:not(:disabled) {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.cat-nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.cat-nav.prev { left: -8px; }
+.cat-nav.next { right: -8px; }
+
+@media (max-width: 760px) {
+  .cat-nav.prev { left: 0; }
+  .cat-nav.next { right: 0; }
+}
+
 /* ---------- Footer ---------- */
 
 footer {

@@ -25,10 +25,9 @@
     </div>
   </header>
 
-  <main class="container content">
-
-    <section id="teaser">
-      <div class="grid grid-2 video-grid">
+  <section class="wide-section" id="teaser">
+    <div class="wide-inner">
+      <div class="grid grid-2 video-grid teaser-grid">
         <figure class="video-card">
           <video autoplay muted loop playsinline controls preload="auto">
             <source src="static/videos/Re3101_alpha31_a1p46_n2_u.mp4" type="video/mp4" />
@@ -52,7 +51,54 @@
         3&ndash;9 million points per frame; the slices shown are for
         visualisation only.
       </p>
-    </section>
+    </div>
+  </section>
+
+  <section class="wide-section" id="catalogue">
+    <div class="wide-inner">
+      <h2 class="catalogue-heading">More Cases</h2>
+      <p class="catalogue-intro">
+        Additional simulation trajectories from the dataset. Each card shows
+        mid-span 2D slices of streamwise velocity (left) and pressure (right)
+        for one case. Use the arrows or swipe to navigate.
+      </p>
+
+      <div class="catalogue">
+        <button type="button" class="cat-nav prev" aria-label="Previous case" disabled>&#x2039;</button>
+        <div class="cat-track" id="cat-track">
+
+          <article class="cat-slide" data-case="Re3842_alpha36_a0p213_n1">
+            <header class="case-header">
+              <h3>Diamond, <em>n</em>&nbsp;=&nbsp;1</h3>
+              <p class="case-meta">
+                <em>Re</em>&nbsp;=&nbsp;3842 &middot;
+                <em>&alpha;</em>&nbsp;=&nbsp;36&deg; &middot;
+                <em>a/D</em>&nbsp;=&nbsp;0.213
+              </p>
+            </header>
+            <div class="grid grid-2 video-grid">
+              <figure class="video-card">
+                <video muted loop playsinline controls preload="metadata">
+                  <source src="static/videos/Re3842_alpha36_a0p213_n1_u.mp4" type="video/mp4" />
+                </video>
+                <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
+              </figure>
+              <figure class="video-card">
+                <video muted loop playsinline controls preload="metadata">
+                  <source src="static/videos/Re3842_alpha36_a0p213_n1_p.mp4" type="video/mp4" />
+                </video>
+                <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
+              </figure>
+            </div>
+          </article>
+
+        </div>
+        <button type="button" class="cat-nav next" aria-label="Next case" disabled>&#x203A;</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="container content">
 
     <section id="abstract">
       <h2>Abstract</h2>
@@ -209,5 +255,33 @@
       </p>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var track = document.getElementById('cat-track');
+      if (!track) return;
+      var prev = document.querySelector('.cat-nav.prev');
+      var next = document.querySelector('.cat-nav.next');
+      var slides = track.querySelectorAll('.cat-slide');
+
+      function step() { return track.clientWidth + 24; }
+
+      function update() {
+        var max = track.scrollWidth - track.clientWidth - 1;
+        prev.disabled = track.scrollLeft <= 1;
+        next.disabled = track.scrollLeft >= max || slides.length < 2;
+      }
+
+      prev.addEventListener('click', function () {
+        track.scrollBy({ left: -step(), behavior: 'smooth' });
+      });
+      next.addEventListener('click', function () {
+        track.scrollBy({ left: step(), behavior: 'smooth' });
+      });
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
 </body>
 </html>
