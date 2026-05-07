@@ -98,6 +98,8 @@ html, body {
 
 .content { padding: 56px 24px 32px; }
 
+.content-trailer { padding-top: 16px; padding-bottom: 32px; }
+
 section { margin-bottom: 56px; }
 
 h2 {

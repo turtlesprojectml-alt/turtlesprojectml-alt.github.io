@@ -54,50 +54,6 @@
     </div>
   </section>
 
-  <section class="wide-section" id="catalogue">
-    <div class="wide-inner">
-      <h2 class="catalogue-heading">More Cases</h2>
-      <p class="catalogue-intro">
-        Additional simulation trajectories from the dataset. Each card shows
-        mid-span 2D slices of streamwise velocity (left) and pressure (right)
-        for one case. Use the arrows or swipe to navigate.
-      </p>
-
-      <div class="catalogue">
-        <button type="button" class="cat-nav prev" aria-label="Previous case" disabled>&#x2039;</button>
-        <div class="cat-track" id="cat-track">
-
-          <article class="cat-slide" data-case="Re3842_alpha36_a0p213_n1">
-            <header class="case-header">
-              <h3>Diamond, <em>n</em>&nbsp;=&nbsp;1</h3>
-              <p class="case-meta">
-                <em>Re</em>&nbsp;=&nbsp;3842 &middot;
-                <em>&alpha;</em>&nbsp;=&nbsp;36&deg; &middot;
-                <em>a/D</em>&nbsp;=&nbsp;0.213
-              </p>
-            </header>
-            <div class="grid grid-2 video-grid">
-              <figure class="video-card">
-                <video muted loop playsinline controls preload="metadata">
-                  <source src="static/videos/Re3842_alpha36_a0p213_n1_u.mp4" type="video/mp4" />
-                </video>
-                <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
-              </figure>
-              <figure class="video-card">
-                <video muted loop playsinline controls preload="metadata">
-                  <source src="static/videos/Re3842_alpha36_a0p213_n1_p.mp4" type="video/mp4" />
-                </video>
-                <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
-              </figure>
-            </div>
-          </article>
-
-        </div>
-        <button type="button" class="cat-nav next" aria-label="Next case" disabled>&#x203A;</button>
-      </div>
-    </div>
-  </section>
-
   <main class="container content">
 
     <section id="abstract">
@@ -234,6 +190,53 @@
       </p>
     </section>
 
+  </main>
+
+  <section class="wide-section" id="catalogue">
+    <div class="wide-inner">
+      <h2 class="catalogue-heading">More Cases</h2>
+      <p class="catalogue-intro">
+        Additional simulation trajectories from the dataset. Each card shows
+        mid-span 2D slices of streamwise velocity (left) and pressure (right)
+        for one case. Use the arrows or swipe to navigate.
+      </p>
+
+      <div class="catalogue">
+        <button type="button" class="cat-nav prev" aria-label="Previous case" disabled>&#x2039;</button>
+        <div class="cat-track" id="cat-track">
+
+          <article class="cat-slide" data-case="Re3842_alpha36_a0p213_n1">
+            <header class="case-header">
+              <h3>Diamond, <em>n</em>&nbsp;=&nbsp;1</h3>
+              <p class="case-meta">
+                <em>Re</em>&nbsp;=&nbsp;3842 &middot;
+                <em>&alpha;</em>&nbsp;=&nbsp;36&deg; &middot;
+                <em>a/D</em>&nbsp;=&nbsp;0.213
+              </p>
+            </header>
+            <div class="grid grid-2 video-grid">
+              <figure class="video-card">
+                <video muted loop playsinline controls preload="metadata">
+                  <source src="static/videos/Re3842_alpha36_a0p213_n1_u.mp4" type="video/mp4" />
+                </video>
+                <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
+              </figure>
+              <figure class="video-card">
+                <video muted loop playsinline controls preload="metadata">
+                  <source src="static/videos/Re3842_alpha36_a0p213_n1_p.mp4" type="video/mp4" />
+                </video>
+                <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
+              </figure>
+            </div>
+          </article>
+
+        </div>
+        <button type="button" class="cat-nav next" aria-label="Next case" disabled>&#x203A;</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="container content content-trailer">
     <section id="bibtex">
       <h2>Citation</h2>
       <pre class="bibtex">@inproceedings{turtles2026,
@@ -244,8 +247,7 @@
   note      = {Under double-blind review}
 }</pre>
     </section>
-
-  </main>
+  </div>
 
   <footer>
     <div class="container">
