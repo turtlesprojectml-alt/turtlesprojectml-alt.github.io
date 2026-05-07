@@ -28,19 +28,29 @@
   <main class="container content">
 
     <section id="teaser">
-      <video class="teaser-video" autoplay muted loop playsinline controls preload="auto" poster="static/images/parameter_space.png">
-        <source src="static/videos/Re3101_alpha31_a1p46_n2_u.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-        <a href="static/videos/Re3101_alpha31_a1p46_n2_u.mp4">Download the video</a>
-      </video>
+      <div class="grid grid-2 video-grid">
+        <figure class="video-card">
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/Re3101_alpha31_a1p46_n2_u.mp4" type="video/mp4" />
+          </video>
+          <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
+        </figure>
+        <figure class="video-card">
+          <video autoplay muted loop playsinline controls preload="auto">
+            <source src="static/videos/Re3101_alpha31_a1p46_n2_p.mp4" type="video/mp4" />
+          </video>
+          <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
+        </figure>
+      </div>
       <p class="caption">
-        <strong>Mid-span 2D slice</strong> of the streamwise velocity <em>u</em>
-        through a fully three-dimensional simulation. Elliptical cross-section
-        (<em>n</em>&nbsp;=&nbsp;2, <em>a/D</em>&nbsp;=&nbsp;1.46) at
-        <em>Re</em>&nbsp;=&nbsp;3101 and angle of attack <em>&alpha;</em>&nbsp;=&nbsp;31&deg;.
-        Each TurTLES trajectory comprises 400 time steps of three-dimensional
-        wake dynamics sampled on irregular point clouds with 3&ndash;9 million
-        points per frame; the slice shown is for visualisation only.
+        <strong>Mid-span 2D slices</strong> of the streamwise velocity (left)
+        and pressure (right) from the same fully three-dimensional simulation:
+        elliptical cross-section (<em>n</em>&nbsp;=&nbsp;2, <em>a/D</em>&nbsp;=&nbsp;1.46)
+        at <em>Re</em>&nbsp;=&nbsp;3101 and angle of attack
+        <em>&alpha;</em>&nbsp;=&nbsp;31&deg;. Each TurTLES trajectory comprises 400 time
+        steps of 3D wake dynamics sampled on irregular point clouds with
+        3&ndash;9 million points per frame; the slices shown are for
+        visualisation only.
       </p>
     </section>
 
