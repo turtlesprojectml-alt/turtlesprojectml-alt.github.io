@@ -672,7 +672,16 @@ table.compare thead .col-us { color: var(--accent-ink); }
 
 /* ---------- Case explorer (tabs) ---------- */
 
-.explorer { margin-top: 24px; }
+.explorer { margin: 0; }
+
+.gallery-split { margin-top: 32px; }
+
+.col-title {
+  font-size: 16px;
+  font-weight: 650;
+  margin: 0 0 12px;
+  min-height: 21px;
+}
 
 .tabs {
   display: flex;

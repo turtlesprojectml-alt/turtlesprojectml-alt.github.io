@@ -310,17 +310,25 @@
     <!-- ============================== GALLERY ============================== -->
     <section class="block" id="gallery">
       <div class="container">
-        <div class="split split-6-6">
-          <div>
-            <p class="eyebrow">Gallery</p>
-            <h2>Wakes across shapes and Reynolds numbers</h2>
-            <p class="prose-p">
-              At low <em>Re</em> the wake is made of fewer, thicker and more coherent vortex
-              tubes. At high <em>Re</em> it breaks up into a much denser field of fine-scale
-              structures.
-            </p>
+        <div class="section-head">
+          <p class="eyebrow">Gallery</p>
+          <h2>Wakes across shapes and Reynolds numbers</h2>
+          <p class="lead">
+            At low <em>Re</em> the wake is made of fewer, thicker and more coherent vortex
+            tubes. At high <em>Re</em> it breaks up into a much denser field of fine-scale
+            structures.
+          </p>
+        </div>
 
-            <div class="explorer">
+        <div class="split split-6-6 gallery-split">
+          <figure class="fig fig-tight">
+            <h3 class="col-title">Eight cases, three views</h3>
+            <img class="zoomable" src="static/images/wake_gallery.jpg" alt="Grid of eight TurtLES cases, two per shape family, each shown in 3D, side and top views of Q-criterion isosurfaces coloured by velocity magnitude." loading="lazy" />
+            <figcaption>Q-criterion isosurfaces (<em>Q</em><sup>*</sup>&nbsp;=&nbsp;1) coloured by velocity magnitude, one low- and one high-<em>Re</em> case per shape family.</figcaption>
+          </figure>
+
+          <div class="explorer">
+            <h3 class="col-title">Watch a trajectory</h3>
               <div class="tabs" role="tablist" aria-label="Simulation cases">
                 <button role="tab" aria-selected="true" aria-controls="case-1" id="tab-1">
                   <span class="tab-shape">Diamond</span><span class="tab-meta"><em>Re</em> 3842 &middot; 36&deg;</span>
@@ -386,13 +394,7 @@
                   </figure>
                 </div>
               </div>
-            </div>
           </div>
-
-          <figure class="fig fig-tight">
-            <img class="zoomable" src="static/images/wake_gallery.jpg" alt="Grid of eight TurtLES cases, two per shape family, each shown in 3D, side and top views of Q-criterion isosurfaces coloured by velocity magnitude." loading="lazy" />
-            <figcaption>Eight cases in 3D, side and top views: Q-criterion isosurfaces (<em>Q</em><sup>*</sup>&nbsp;=&nbsp;1) coloured by velocity magnitude.</figcaption>
-          </figure>
         </div>
       </div>
     </section>
