@@ -3,19 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TurTLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates</title>
-  <meta name="description" content="TurTLES is a 13 TB dataset of high-fidelity implicit large-eddy simulations of three-dimensional turbulent cylinder wakes, designed to benchmark neural PDE surrogates on long-horizon, irregular-mesh, and physically realistic turbulent flows." />
-  <meta name="robots" content="noindex,nofollow" />
+  <title>TurtLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates</title>
+  <meta name="description" content="TurtLES is a 14 TB dataset of high-fidelity implicit large-eddy simulations of three-dimensional turbulent cylinder wakes: 400 trajectories of 400 time steps with 3–11 million points per frame, for benchmarking neural PDE surrogates. NeurIPS 2026, Track on Evaluations and Datasets." />
   <link rel="stylesheet" href="static/css/styles.css" />
 </head>
 <body>
   <header class="hero">
     <div class="container">
-      <h1 class="title">TurTLES</h1>
+      <h1 class="title">TurtLES</h1>
       <p class="subtitle">A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates</p>
 
-      <p class="authors">Anonymous Authors</p>
-      <p class="venue">Submission to NeurIPS 2026 &middot; Datasets and Benchmarks Track</p>
+      <p class="authors">
+        <span class="author">Jarno Platenburg<sup>1,2,*</sup></span>
+        <span class="author">Armand Kassa&iuml; Koupa&iuml;<sup>1,*</sup></span>
+        <span class="author">Paola Cinnella<sup>3,&dagger;</sup></span>
+        <span class="author">Patrick Gallinari<sup>1,4,&dagger;</sup></span>
+      </p>
+      <p class="affiliations">
+        <span><sup>1</sup>Sorbonne Universit&eacute;, CNRS, ISIR, Paris, France</span>
+        <span><sup>2</sup>Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands</span>
+        <span><sup>3</sup>Sorbonne Universit&eacute;, CNRS, Institut Jean Le Rond d&rsquo;Alembert, Paris, France</span>
+        <span><sup>4</sup>Criteo AI Lab, Paris, France</span>
+      </p>
+      <p class="author-notes"><sup>*</sup>Equal contribution &middot; <sup>&dagger;</sup>Equal advising</p>
+      <p class="venue">NeurIPS 2026 &middot; Track on Evaluations and Datasets</p>
 
       <nav class="links">
         <a class="btn" href="static/paper.pdf">Paper (PDF)</a>
@@ -27,6 +38,21 @@
 
   <section class="wide-section" id="teaser">
     <div class="wide-inner">
+      <figure class="video-card hero-video">
+        <video autoplay muted loop playsinline controls preload="auto"
+               poster="static/videos/Re3101_alpha31_a1p46_n2_viewB_Qstar1_poster.jpg">
+          <source src="static/videos/Re3101_alpha31_a1p46_n2_viewB_Qstar1_web.mp4" type="video/mp4" />
+        </video>
+      </figure>
+      <p class="caption">
+        <strong>Three-dimensional wake</strong> over a full 400-step trajectory:
+        isosurfaces of the Q-criterion (<em>Q</em><sup>*</sup>&nbsp;=&nbsp;<em>QD</em><sup>2</sup>/<em>U</em><sub>&infin;</sub><sup>2</sup>&nbsp;=&nbsp;1)
+        coloured by the non-dimensional velocity magnitude
+        &Vert;<strong>U</strong>&Vert;/<em>U</em><sub>&infin;</sub>.
+        Elliptical cross-section (<em>n</em>&nbsp;=&nbsp;2, <em>a/D</em>&nbsp;=&nbsp;1.46)
+        at <em>Re</em>&nbsp;=&nbsp;3101 and angle of attack <em>&alpha;</em>&nbsp;=&nbsp;31&deg;.
+      </p>
+
       <div class="grid grid-2 video-grid teaser-grid">
         <figure class="video-card">
           <video autoplay muted loop playsinline controls preload="auto">
@@ -43,13 +69,10 @@
       </div>
       <p class="caption">
         <strong>Mid-span 2D slices</strong> of the streamwise velocity (left)
-        and pressure (right) from the same fully three-dimensional simulation:
-        elliptical cross-section (<em>n</em>&nbsp;=&nbsp;2, <em>a/D</em>&nbsp;=&nbsp;1.46)
-        at <em>Re</em>&nbsp;=&nbsp;3101 and angle of attack
-        <em>&alpha;</em>&nbsp;=&nbsp;31&deg;. Each TurTLES trajectory comprises 400 time
-        steps of 3D wake dynamics sampled on irregular point clouds with
-        3&ndash;9 million points per frame; the slices shown are for
-        visualisation only.
+        and pressure (right) from the same simulation. Each TurtLES trajectory
+        comprises 400 time steps of 3D wake dynamics sampled on irregular point
+        clouds with 3&ndash;11 million points per frame; the slices shown are
+        for visualisation only.
       </p>
     </div>
   </section>
@@ -60,21 +83,21 @@
       <h2>Abstract</h2>
       <p>
         Machine-learning surrogates are increasingly used to accelerate computational
-        fluid dynamics (CFD), yet progress is limited by the lack of benchmarks
-        capturing realistic, time-dependent turbulent flows. We introduce <strong>TurTLES</strong>,
-        a 13 TB dataset of high-fidelity implicit large-eddy simulations of
-        three-dimensional turbulent cylinder wakes in the shear-layer transition regime.
-        The dataset contains 380 trajectories of 400 time steps each, with 3&ndash;9 million
-        points per frame sampled on irregular point clouds, spanning variations in
-        geometry, Reynolds number, and angle of attack. Unlike existing datasets,
-        TurTLES captures fully three-dimensional turbulence with an active energy
-        cascade driven by vortex stretching, combining (i) dense irregular meshes,
-        (ii) long-horizon temporal dynamics, and (iii) physically realistic turbulent
-        behavior. We benchmark state-of-the-art neural operators on long autoregressive
-        rollouts and identify key failure modes, including temporal instability,
-        loss of small-scale energy, and challenges in learning on large irregular
-        domains. TurTLES provides a new standard benchmark for evaluating surrogate
-        models in high-resolution, industrial-scale CFD regimes.
+        fluid dynamics, yet progress is limited by the lack of benchmarks capturing
+        realistic, time-dependent turbulent flows. We introduce <strong>TurtLES</strong>,
+        a 14&nbsp;TB dataset of 3D turbulent cylinder wakes in the shear-layer
+        transition regime, computed via high-fidelity implicit large-eddy simulations.
+        The dataset contains 400 trajectories of 400 time steps each, with
+        3&ndash;11 million points per frame, spanning variations in geometry,
+        Reynolds number, and angle of attack. Unlike existing datasets, TurtLES
+        combines (i) physically realistic turbulence with an active energy cascade
+        driven by vortex stretching, (ii) dense irregular meshes, and
+        (iii) long-horizon temporal dynamics. We benchmark state-of-the-art neural
+        operators on autoregressive rollouts and identify key failure modes,
+        including temporal instability, loss of small-scale energy, and challenges
+        in learning on large irregular domains. TurtLES provides a new benchmark
+        for evaluating surrogate models on 3D turbulent wakes at industrially
+        relevant mesh resolution.
       </p>
     </section>
 
@@ -82,15 +105,15 @@
       <h2>Key Properties</h2>
       <div class="grid grid-4">
         <div class="card">
-          <div class="stat">13 TB</div>
+          <div class="stat">14 TB</div>
           <div class="stat-label">High-fidelity 3D iLES data</div>
         </div>
         <div class="card">
-          <div class="stat">380</div>
+          <div class="stat">400</div>
           <div class="stat-label">Trajectories &times; 400 time steps</div>
         </div>
         <div class="card">
-          <div class="stat">3&ndash;9 M</div>
+          <div class="stat">3&ndash;11 M</div>
           <div class="stat-label">Points per frame, irregular mesh</div>
         </div>
         <div class="card">
@@ -100,33 +123,84 @@
       </div>
     </section>
 
+    <section id="contributions">
+      <h2>Contributions</h2>
+      <ol>
+        <li>
+          <strong>Dense irregular 3D data.</strong> Dynamic three-dimensional
+          flow on unstructured meshes with millions of points per frame, beyond
+          the resolution of regular-grid or coarse point-cloud benchmarks.
+        </li>
+        <li>
+          <strong>Long-horizon evaluation.</strong> Hundreds of autoregressive time
+          steps in chaotic, geometry-dependent wakes.
+        </li>
+        <li>
+          <strong>Physically grounded assessment.</strong> Turbulent surrogates
+          are scored on high-frequency quantities such as fluctuation statistics,
+          spanwise energy spectra, and per-case wake-probe spectra, in addition
+          to field-wise errors.
+        </li>
+      </ol>
+    </section>
+
     <section id="dataset">
       <h2>Dataset Overview</h2>
-      <p>
-        TurTLES is constructed within a four-dimensional parameter space: geometry
-        is parameterised through the super-ellipse (Lam&eacute; curve) family, with
-        aspect ratio <em>AR&nbsp;=&nbsp;a/b</em>, exponent <em>n&nbsp;&isin;&nbsp;{1,&nbsp;2,&nbsp;5,&nbsp;&infin;}</em>
-        (diamond, circular, rounded rectangle, rectangle), Reynolds number
-        <em>Re&nbsp;&isin;&nbsp;[1000,&nbsp;3900]</em>, and inflow angle of attack
-        <em>&alpha;&nbsp;&isin;&nbsp;[0&deg;,&nbsp;45&deg;]</em>. Samples are drawn from a Sobol&rsquo; sequence
-        to evenly cover the hypercube. Each case is solved using a high-order Flux
-        Reconstruction iLES scheme on a Gmsh-generated unstructured mesh extruded
-        into the span-wise direction.
-      </p>
       <figure>
-        <img src="static/images/parameter_space.png" alt="Parameter space overview: geometry definitions, Sobol sample distribution, and parameter histograms." />
+        <img src="static/images/overview.jpg" alt="Q-criterion isosurfaces of a TurtLES rectangle case in 3D, side and top view, next to one low- and one high-Reynolds-number case for each of the four shape families, above a summary of the dataset parameters." />
         <figcaption>
-          <strong>Figure 1.</strong> Overview of the four-dimensional parameter
-          sampling space: super-elliptical geometries, the 380 Sobol samples in
-          (<em>Re</em>, <em>&alpha;</em>, <em>AR</em>), and histograms of each
-          parameter.
+          <strong>Figure 1.</strong> TurtLES visualised through Q-criterion
+          isosurfaces, coloured by velocity magnitude. Left: a rectangle at
+          <em>Re</em>&nbsp;=&nbsp;3571, <em>&alpha;</em>&nbsp;=&nbsp;25&deg;,
+          <em>a/D</em>&nbsp;=&nbsp;1.41 in 3D, side and top views. Right: one
+          low- and one high-<em>Re</em> case for each shape family. Bottom: the
+          dataset parameters.
         </figcaption>
       </figure>
 
+      <p>
+        TurtLES is constructed within a four-dimensional parameter space. Geometry
+        is parameterised through the super-ellipse (Lam&eacute; curve)
+        |<em>x/a</em>|<sup><em>n</em></sup>&nbsp;+&nbsp;|<em>y/b</em>|<sup><em>n</em></sup>&nbsp;=&nbsp;1,
+        with the exponent <em>n&nbsp;&isin;&nbsp;{1,&nbsp;2,&nbsp;5,&nbsp;&infin;}</em>
+        selecting diamond, elliptical, rounded-rectangle and rectangular shapes.
+        The half-thickness is fixed at <em>b</em>&nbsp;=&nbsp;1/2, giving a constant
+        object thickness <em>D</em>&nbsp;=&nbsp;2<em>b</em>&nbsp;=&nbsp;1, while the
+        semi-axis <em>a</em> is sampled log-uniformly in [1/6,&nbsp;3/2], so that
+        aspect ratios span 1/3 to 3. The inflow is set by the Reynolds number
+        <em>Re&nbsp;&isin;&nbsp;[1000,&nbsp;3900]</em>, based on <em>D</em>, and the
+        angle of attack <em>&alpha;&nbsp;&isin;&nbsp;[0&deg;,&nbsp;45&deg;]</em>.
+        In this range the wake transitions to turbulence while the boundary layer
+        remains laminar. A Sobol&rsquo; sequence draws
+        <em>N<sub>s</sub></em>&nbsp;=&nbsp;400 samples that evenly cover the hypercube.
+      </p>
+      <figure>
+        <img src="static/images/parameter_space.png" alt="Parameter space overview: super-elliptical geometry definitions, the 400 Sobol samples in (Re, alpha, a/D), and histograms of each parameter." />
+        <figcaption>
+          <strong>Figure 2.</strong> Overview of the parameter sampling space.
+          (a) Definition of the super-elliptical geometry. (b) The
+          <em>N<sub>s</sub></em>&nbsp;=&nbsp;400 samples in three dimensions, with
+          projections on the coordinate planes in grey. (c&ndash;f) Histograms of
+          the sampled parameters. Colours for each value of <em>n</em> in (f)
+          match those in (a) and (b).
+        </figcaption>
+      </figure>
+
+      <p>
+        Each case is solved with a high-order Flux Reconstruction implicit LES
+        scheme implemented in PyFR, on a Gmsh-generated mesh whose 2D
+        <em>xy</em>-plane is extruded into 30 structured span-wise layers. Each
+        element holds 75&ndash;125 solution points, giving 2.9&nbsp;M to 10.5&nbsp;M
+        unique points per case within the stored region. The numerical setup is
+        validated against DNS and experimental data for four benchmark cases:
+        a circular cylinder at <em>Re</em>&nbsp;=&nbsp;1000 and 3900, a square
+        cylinder at <em>Re</em>&nbsp;=&nbsp;2000, and a 5:1 rectangle at
+        <em>Re</em>&nbsp;=&nbsp;3000.
+      </p>
       <figure>
         <img src="static/images/figure2_domain.png" alt="Schematic overview of the simulation domain: 3D view with labelled boundaries and the 2D mesh in the xy-plane." />
         <figcaption>
-          <strong>Figure 2.</strong> Schematic overview of the domain.
+          <strong>Figure 3.</strong> Schematic overview of the domain.
           (a) Three-dimensional view illustrating the physical boundaries:
           inlet (<strong>A</strong>), outlets (<strong>B</strong>&ndash;<strong>D</strong>),
           object surface (<strong>E</strong>), and periodic side-walls
@@ -140,53 +214,234 @@
     <section id="data-structure">
       <h2>Data Structure</h2>
       <p>
-        Each case is stored as a single set of node coordinates plus solutions
-        at 400 time steps. A solution comprises the three-dimensional pressure
-        <em>p</em>, density <em>&rho;</em>, and velocity components
-        (<em>u</em>, <em>v</em>, <em>w</em>). Snapshots are restricted to nodes
-        inside the rectangular box <em>x/D</em>&nbsp;&isin;&nbsp;[&minus;3,&nbsp;10],
+        Data collection starts only once the initial numerical transient has been
+        washed out. Each case then stores a single set of node coordinates plus
+        400 snapshots of the pressure <em>p</em>, density <em>&rho;</em>, and
+        velocity components (<em>u</em>, <em>v</em>, <em>w</em>), saved in HDF5
+        as one coordinate file and four temporal chunks of 100 frames. Snapshots
+        are restricted to nodes inside the box
+        <em>x/D</em>&nbsp;&isin;&nbsp;[&minus;3,&nbsp;10],
         <em>y/D</em>&nbsp;&isin;&nbsp;[&minus;3.5,&nbsp;3.5],
         <em>z/D</em>&nbsp;&isin;&nbsp;[0,&nbsp;2&pi;]. The sampling interval
-        <em>&Delta;t<sub>s</sub></em> is chosen so that the inertial range of
-        the turbulence spectrum is retained while keeping storage tractable.
+        <em>&Delta;t<sub>s</sub></em>&nbsp;=&nbsp;0.04732 (in units of <em>D/U</em>)
+        retains the inertial range of the turbulence spectrum; sub-sampling acts
+        in time only, so every snapshot keeps the full spatial resolution.
+      </p>
+      <p>
+        Each case directory also contains power spectra of the streamwise
+        (<em>u</em>) and cross-stream (<em>v</em>) velocity at three centreline
+        probes placed 2.5<em>D</em>, 3.5<em>D</em> and 4.5<em>D</em> behind the
+        object, together with the script used to compute them. These give
+        per-case evidence of the turbulent cascade and a physically grounded
+        target for evaluating surrogates.
       </p>
       <figure>
-        <img src="static/images/figure3_data_structure.png" alt="Diagram of a per-case directory: shared coordinates, 400 time-step solutions, and example renders of the u-velocity and pressure fields." />
+        <img src="static/images/figure3_data_structure.jpg" alt="Diagram of a per-case directory: shared coordinates, 400 time-step solutions, and example renders of the u-velocity and pressure fields." />
         <figcaption>
-          <strong>Figure 3.</strong> Overview of the flow case data structure.
-          Each case directory holds one set of node coordinates and the
-          corresponding solutions for all 400 time steps
-          (<em>t<sub>0</sub></em>, <em>t<sub>1</sub></em>, &hellip;,
-          <em>t<sub>f&thinsp;=&thinsp;399</sub></em>). Right: example renders of
-          the <em>u</em>-velocity and pressure fields for a single frame of
+          <strong>Figure 4.</strong> Overview of the flow case data structure.
+          Each case stores one set of coordinates and the solutions at 400
+          time steps (<em>t<sub>0</sub></em>, <em>t<sub>1</sub></em>, &hellip;,
+          <em>t<sub>f</sub></em>, with <em>t<sub>f</sub></em>&nbsp;=&nbsp;399).
+          A solution comprises the three-dimensional pressure (<em>p</em>),
+          density (<em>&rho;</em>), and velocity (<em>u</em>, <em>v</em>,
+          <em>w</em>) fields. Right: renders of <em>u</em> and <em>p</em> for
           case <code>Re_3101_alpha31_a1p46_n2</code>.
         </figcaption>
       </figure>
     </section>
 
-    <section id="contributions">
-      <h2>Contributions</h2>
-      <ol>
-        <li>
-          <strong>Dense irregular 3D data.</strong> Millions of points per frame on
-          unstructured meshes, beyond the resolution of regular-grid or coarse
-          point-cloud benchmarks.
-        </li>
-        <li>
-          <strong>Long-horizon evaluation.</strong> Hundreds of autoregressive time
-          steps in chaotic, geometry-dependent wakes.
-        </li>
-      </ol>
+    <section id="gallery">
+      <h2>Flow Visualisations</h2>
+      <p>
+        For each shape family, one case is shown at low
+        (<em>Re</em>&nbsp;&le;&nbsp;1300) and one at high Reynolds number
+        (<em>Re</em>&nbsp;&gt;&nbsp;3000). At low <em>Re</em> the wake consists
+        of fewer, thicker and more coherent vortex tubes, whereas at high
+        <em>Re</em> it breaks up into a much denser field of fine-scale structures.
+      </p>
+      <figure class="figure-narrow">
+        <img src="static/images/wake_gallery.jpg" alt="Grid of eight TurtLES cases, two per shape family, each shown in 3D, side and top views of Q-criterion isosurfaces coloured by velocity magnitude." loading="lazy" />
+        <figcaption>
+          <strong>Figure 5.</strong> Eight TurtLES cases. For each case, 3D,
+          side and top views show isosurfaces of the Q-criterion
+          (<em>Q</em><sup>*</sup>&nbsp;=&nbsp;<em>QD</em><sup>2</sup>/<em>U</em><sub>&infin;</sub><sup>2</sup>&nbsp;=&nbsp;1)
+          at an instantaneous snapshot, coloured by the non-dimensional velocity
+          magnitude &Vert;<strong>U</strong>&Vert;/<em>U</em><sub>&infin;</sub>.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="splits">
+      <h2>Splits and mini-TurtLES</h2>
+      <p>
+        Trajectories are split into fixed training, validation and test sets of
+        <strong>320 / 40 / 40</strong> cases, released with the dataset. Each shape
+        family holds 100 trajectories and is split exactly 80/10/10, and within
+        each family the assignment is optimised so that the distribution of
+        (<em>Re</em>, <em>&alpha;</em>, log&nbsp;<em>a</em>) in every subset matches
+        that of the full dataset. This yields an in-distribution interpolation
+        split; extrapolation splits (for example, holding out a whole shape family
+        or all cases above a Reynolds-number threshold) are straightforward to
+        build from the released data. A circular-cylinder reference case
+        (<em>Re</em>&nbsp;=&nbsp;1000, <em>a</em>&nbsp;=&nbsp;0.5,
+        <em>&alpha;</em>&nbsp;=&nbsp;0&deg;, <em>n</em>&nbsp;=&nbsp;2) is
+        distributed separately.
+      </p>
+      <figure>
+        <img src="static/images/split_coverage.png" alt="Projections of the sampled cases on the (Re, alpha), (Re, a) and (alpha, a) planes coloured by split, and a bar chart of shape-family fractions per split." loading="lazy" />
+        <figcaption>
+          <strong>Figure 6.</strong> Coverage of the parameter space by the
+          train/validation/test split: training cases in grey, validation as blue
+          squares and test as red triangles. Right: fraction of each subset
+          belonging to each shape family <em>n</em>.
+        </figcaption>
+      </figure>
+
+      <p>
+        To lower the barrier to entry, <strong>mini-TurtLES</strong> defines
+        standardised subsets that shrink the dataset along two independent axes.
+        <em>Geometry tiers</em> (G4&ndash;G1) drop shape families while keeping the
+        full range of <em>Re</em>, <em>&alpha;</em> and <em>a</em>;
+        <em>temporal tiers</em> (T100&ndash;T400) keep the first 100&ndash;400
+        snapshots of each trajectory. Tiers combine freely, for example G2-T200.
+        A 5&nbsp;GB <strong>TurtLES-debug</strong> subset, holding the first 100
+        snapshots of the reference circular-cylinder case, is provided for
+        installation checks and dataloader validation. All subsets are described
+        in the <code>miniturtles.md</code> file shipped with the dataset.
+      </p>
+      <div class="table-wrap">
+        <table class="results">
+          <caption><strong>Table 1.</strong> Approximate download size of each mini-TurtLES subset.</caption>
+          <thead>
+            <tr>
+              <th>Geometry tier</th><th>Families <em>n</em></th>
+              <th>T100</th><th>T200</th><th>T300</th><th>T400</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>G4</td><td>{1, 2, 5, &infin;}</td><td>3.5 TB</td><td>7.0 TB</td><td>10.5 TB</td><td>14 TB</td></tr>
+            <tr><td>G3</td><td>{1, 2, &infin;}</td><td>2.6 TB</td><td>5.1 TB</td><td>7.7 TB</td><td>10.2 TB</td></tr>
+            <tr><td>G2</td><td>{2, &infin;}</td><td>1.8 TB</td><td>3.6 TB</td><td>5.3 TB</td><td>7.1 TB</td></tr>
+            <tr><td>G1</td><td>{2}</td><td>0.8 TB</td><td>1.6 TB</td><td>2.4 TB</td><td>3.3 TB</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section id="benchmark">
       <h2>Benchmarks</h2>
       <p>
-        We evaluate state-of-the-art neural operators on long autoregressive
-        rollouts and identify recurring failure modes: temporal instability,
-        loss of small-scale energy, and degradation on large irregular domains.
-        Full results, training protocols, and evaluation metrics are reported
-        in the paper.
+        We evaluate four neural-operator baselines, UPT, GINO, Transolver++, and
+        CALM-PDE (with the scaling improvements of ECHO), on next-frame
+        prediction of <em>p</em>, <em>&rho;</em>, <em>u</em>, <em>v</em> and
+        <em>w</em>. All models are trained on the 320 training trajectories to
+        predict the residual between consecutive frames, conditioned on
+        <em>Re</em>, under a shared budget of 100k steps (about 20&nbsp;h on one
+        H100). At test time each model rolls out the full 399-step trajectory
+        from the initial condition alone. We report the relative
+        <em>L</em><sup>2</sup> error, the variance-scaled RMSE (VRMSE, where
+        predicting the per-frame spatial mean scores 1), the RMS log-power error
+        of spanwise energy spectra in low-, mid- and high-wavenumber bands, and
+        the GPU time to predict one full trajectory.
+      </p>
+
+      <div class="table-wrap">
+        <table class="results">
+          <caption><strong>Table 2.</strong> Next-frame results on the test set (lower is better). Spectral errors are RMS log-power discrepancies over low-, mid- and high-frequency spanwise wavenumber bands. Best value per column in bold.</caption>
+          <thead>
+            <tr>
+              <th rowspan="2">Model</th>
+              <th colspan="2">Field error</th>
+              <th colspan="3">Spectral error</th>
+            </tr>
+            <tr>
+              <th>Rel-<em>L</em><sup>2</sup></th><th>VRMSE</th>
+              <th>Low</th><th>Mid</th><th>High</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>UPT</td><td>7.01e-2</td><td>8.94e-2</td><td>4.69e-2</td><td><strong>2.33e-2</strong></td><td><strong>4.42e-2</strong></td></tr>
+            <tr><td>GINO</td><td>1.32e-1</td><td>1.21</td><td>1.32e-1</td><td>7.31e-2</td><td>4.48e-2</td></tr>
+            <tr><td>Transolver++</td><td>1.08e-1</td><td>1.06</td><td>8.02e-2</td><td>2.89e-2</td><td>4.41e-1</td></tr>
+            <tr><td>CALM-PDE</td><td><strong>6.80e-2</strong></td><td><strong>7.26e-2</strong></td><td><strong>4.66e-2</strong></td><td>2.38e-2</td><td>4.44e-2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrap">
+        <table class="results">
+          <caption><strong>Table 3.</strong> Rollout stability and computational cost. Rollout columns give VRMSE averaged over windows of rollout steps. Cost is the GPU time to generate (solver) or predict (surrogates) one full trajectory, i.e. wall-clock time &times; GPUs used (four for the solver, one per surrogate) on NVIDIA H100 80&nbsp;GB.</caption>
+          <thead>
+            <tr>
+              <th rowspan="2">Model</th>
+              <th colspan="4">Rollout VRMSE</th>
+              <th rowspan="2">Cost [GPU-s]</th>
+            </tr>
+            <tr>
+              <th>1&ndash;50</th><th>51&ndash;150</th><th>151&ndash;300</th><th>301&ndash;399</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-ref"><td>Solver (PyFR)</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>13160</td></tr>
+            <tr><td>UPT</td><td>6.51e-1</td><td>1.56</td><td>3.31</td><td>5.12</td><td><strong>835</strong></td></tr>
+            <tr><td>GINO</td><td>3.18</td><td>10.32</td><td>24.31</td><td>33.12</td><td>4097</td></tr>
+            <tr><td>Transolver++</td><td>2.33</td><td>8.32</td><td>19.33</td><td>31.24</td><td>1148</td></tr>
+            <tr><td>CALM-PDE</td><td><strong>4.61e-1</strong></td><td><strong>5.46e-1</strong></td><td><strong>6.52e-1</strong></td><td><strong>7.89e-1</strong></td><td>1073</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <img src="static/images/spectral_fidelity.png" alt="Spanwise energy spectra of u for the reference, persistence, mean-field, UPT, Transolver++ and CALM-PDE, and the log-power discrepancy against wavenumber." loading="lazy" />
+        <figcaption>
+          <strong>Figure 7.</strong> Spectral fidelity of autoregressive rollouts.
+          (a) Reference and predicted spanwise energy spectra averaged over test
+          trajectories. (b) Log-power discrepancy across wavenumbers.
+        </figcaption>
+      </figure>
+
+      <p>The results expose four complementary failure modes:</p>
+      <ul>
+        <li>
+          <strong>Short-horizon error.</strong> Under the shared budget, CALM-PDE
+          and UPT reach the best next-frame accuracy, while Transolver++ and GINO
+          score a VRMSE at or above 1, no better than predicting the per-frame
+          spatial mean.
+        </li>
+        <li>
+          <strong>Long-horizon instability.</strong> CALM-PDE stays stable over
+          the full rollout (VRMSE 0.46 &rarr; 0.79), whereas UPT drifts to 5.1 and
+          Transolver++ and GINO exceed 30 in the final window.
+        </li>
+        <li>
+          <strong>Loss of small-scale fidelity.</strong> CALM-PDE tracks the
+          reference spectrum closely, UPT shows larger high-wavenumber errors,
+          and Transolver++ strongly over-predicts energy at intermediate and high
+          wavenumbers. A persistence baseline that repeats the initial state
+          also matches the time-averaged spectrum, so spectral agreement must be
+          read together with field-level and rollout errors.
+        </li>
+        <li>
+          <strong>Limited acceleration.</strong> Every surrogate is faster than
+          the solver in GPU-seconds, but only by about 3&times; (GINO) to
+          16&times; (UPT), a modest margin compared with speedups commonly
+          reported on smaller problems.
+        </li>
+      </ul>
+    </section>
+
+    <section id="limitations">
+      <h2>Limitations</h2>
+      <p>
+        TurtLES covers one physical regime: turbulent cylinder wakes in the
+        shear-layer transition range, and whether the observed failure modes
+        transfer to other geometries or Reynolds regimes remains open. The
+        reference trajectories come from implicit LES, so surrogate errors are
+        measured against this solver rather than against DNS or experiment.
+        Snapshots are sub-sampled in time to keep storage tractable, and the
+        resulting window is too short for converged averaged statistics such as
+        Reynolds stresses. The four baselines are a starting point, not an
+        exhaustive account of how neural operators perform on this class of flows.
       </p>
     </section>
 
@@ -289,21 +544,33 @@
   <div class="container content content-trailer">
     <section id="bibtex">
       <h2>Citation</h2>
-      <pre class="bibtex">@inproceedings{turtles2026,
-  title     = {TurTLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates},
-  author    = {Anonymous Authors},
-  booktitle = {Submitted to NeurIPS 2026 Datasets and Benchmarks Track},
-  year      = {2026},
-  note      = {Under double-blind review}
+      <pre class="bibtex">@inproceedings{platenburg2026turtles,
+  title     = {{TurtLES}: A Large-Scale Benchmark for Turbulent {3D} Neural {PDE} Surrogates},
+  author    = {Platenburg, Jarno and Kassa{\"\i} Koupa{\"\i}, Armand and Cinnella, Paola and Gallinari, Patrick},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Track on Evaluations and Datasets},
+  year      = {2026}
 }</pre>
+    </section>
+
+    <section id="acknowledgements">
+      <h2>Acknowledgements</h2>
+      <p class="small">
+        We acknowledge the financial support provided by DEEPNUM
+        (ANR-21-CE23-0017-02), PHLUSIM (ANR-23-CE23-0025-02), MELISSA
+        (ANR-24-CE23-7140-01), PEPR Sharp (ANR-23-PEIA0008, ANR, FRANCE 2030),
+        and cluster IA PostGenAI@Paris (ANR-23-IACL-0007). This project was
+        provided with computer and storage resources by GENCI at IDRIS thanks to
+        the grants 2026-AD011016890R2, 2026-AD011017368, 2025-A0191016890 and
+        2026-A0211016890 on the supercomputer Jean Zay&rsquo;s V100/A100/H100
+        partitions.
+      </p>
     </section>
   </div>
 
   <footer>
     <div class="container">
       <p>
-        Anonymous project page for double-blind review.
-        Author identities will be revealed upon acceptance.
+        TurtLES &middot; NeurIPS 2026, Track on Evaluations and Datasets
       </p>
     </div>
   </footer>
