@@ -5,602 +5,768 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TurtLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates</title>
   <meta name="description" content="TurtLES is a 14 TB dataset of high-fidelity implicit large-eddy simulations of three-dimensional turbulent cylinder wakes: 400 trajectories of 400 time steps with 3–11 million points per frame, for benchmarking neural PDE surrogates. NeurIPS 2026, Track on Evaluations and Datasets." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="TurtLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates" />
+  <meta property="og:description" content="14 TB of high-fidelity 3D turbulent wake simulations: 400 trajectories × 400 time steps, 3–11 M points per frame. NeurIPS 2026, Track on Evaluations and Datasets." />
+  <meta property="og:url" content="https://turtlesprojectml-alt.github.io/" />
+  <meta property="og:image" content="https://turtlesprojectml-alt.github.io/static/images/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://turtlesprojectml-alt.github.io/static/images/og.jpg" />
+
+  <link rel="icon" href="static/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" />
   <link rel="stylesheet" href="static/css/styles.css" />
+  <script>
+    try {
+      var t = localStorage.getItem('turtles-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
 </head>
 <body>
-  <header class="hero">
-    <div class="container">
-      <h1 class="title">TurtLES</h1>
-      <p class="subtitle">A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates</p>
 
-      <p class="authors">
-        <span class="author">Jarno Platenburg<sup>1,2,*</sup></span>
-        <span class="author">Armand Kassa&iuml; Koupa&iuml;<sup>1,*</sup></span>
-        <span class="author">Paola Cinnella<sup>3,&dagger;</sup></span>
-        <span class="author">Patrick Gallinari<sup>1,4,&dagger;</sup></span>
-      </p>
-      <p class="affiliations">
-        <span><sup>1</sup>Sorbonne Universit&eacute;, CNRS, ISIR, Paris, France</span>
-        <span><sup>2</sup>Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands</span>
-        <span><sup>3</sup>Sorbonne Universit&eacute;, CNRS, Institut Jean Le Rond d&rsquo;Alembert, Paris, France</span>
-        <span><sup>4</sup>Criteo AI Lab, Paris, France</span>
-      </p>
-      <p class="author-notes"><sup>*</sup>Equal contribution &middot; <sup>&dagger;</sup>Equal advising</p>
-      <p class="venue">NeurIPS 2026 &middot; Track on Evaluations and Datasets</p>
-
-      <nav class="links">
-        <a class="btn" href="static/paper.pdf">Paper (PDF)</a>
-        <a class="btn" href="https://anonymous.4open.science/r/turtlescode-DC26/README.md" target="_blank" rel="noopener noreferrer">Code</a>
-        <a class="btn" href="https://huggingface.co/datasets/turtlesprojectml/turtles" target="_blank" rel="noopener noreferrer">Dataset</a>
-      </nav>
+  <!-- ============================== NAV ============================== -->
+  <nav class="topnav" aria-label="Sections">
+    <div class="topnav-inner">
+      <a class="brand" href="#top">TurtLES</a>
+      <div class="topnav-links">
+        <a href="#overview" class="nav-overview">Overview</a>
+        <a href="#dataset">Dataset</a>
+        <a href="#results">Results</a>
+        <a href="#data"><span class="nav-long">Get the data</span><span class="nav-short">Download</span></a>
+        <a href="#cite">Cite</a>
+      </div>
+      <button type="button" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M1.5 12H4M20 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
+      </button>
     </div>
-  </header>
+  </nav>
 
-  <section class="wide-section" id="teaser">
-    <div class="wide-inner">
-      <figure class="video-card hero-video">
-        <video autoplay muted loop playsinline controls preload="auto"
-               poster="static/videos/Re3101_alpha31_a1p46_n2_viewB_Qstar1_poster.jpg">
+  <!-- ============================== HERO ============================== -->
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="venue-pill">NeurIPS 2026 &middot; Track on Evaluations and Datasets</p>
+        <h1 class="title">TurtLES</h1>
+        <p class="subtitle">A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates</p>
+
+        <p class="authors">
+          <span>Jarno Platenburg<sup>1,2,*</sup></span>
+          <span>Armand Kassa&iuml; Koupa&iuml;<sup>1,*</sup></span>
+          <span>Paola Cinnella<sup>3,&dagger;</sup></span>
+          <span>Patrick Gallinari<sup>1,4,&dagger;</sup></span>
+        </p>
+        <p class="affiliations">
+          <span><sup>1</sup>Sorbonne Universit&eacute;, CNRS, ISIR</span>
+          <span><sup>2</sup>TU Delft, Faculty of Aerospace Engineering</span>
+          <span><sup>3</sup>Sorbonne Universit&eacute;, CNRS, Institut Jean Le Rond d&rsquo;Alembert</span>
+          <span><sup>4</sup>Criteo AI Lab</span>
+        </p>
+        <p class="author-notes"><sup>*</sup>Equal contribution &middot; <sup>&dagger;</sup>Equal advising</p>
+
+        <div class="links">
+          <a class="btn btn-primary" href="static/paper.pdf">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+            Paper
+          </a>
+          <a class="btn" href="https://anonymous.4open.science/r/turtlescode-DC26/README.md" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>
+            Code
+          </a>
+          <a class="btn" href="https://huggingface.co/datasets/turtlesprojectml/turtles" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+            Dataset
+          </a>
+          <a class="btn" href="#cite">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4H8c0 2 1 3 3 3v2c-3 0-5-2-5-5V7zm8 0h4v4h-3c0 2 1 3 3 3v2c-3 0-5-2-5-5V7z"/></svg>
+            BibTeX
+          </a>
+        </div>
+      </div>
+
+      <figure class="hero-media">
+        <video autoplay muted loop playsinline preload="auto" data-inview
+               poster="static/videos/Re3101_alpha31_a1p46_n2_viewB_Qstar1_poster.jpg"
+               aria-label="Animated 3D view of vortical structures in the turbulent wake behind an inclined elliptical cylinder">
           <source src="static/videos/Re3101_alpha31_a1p46_n2_viewB_Qstar1_web.mp4" type="video/mp4" />
         </video>
-      </figure>
-      <p class="caption">
-        <strong>Three-dimensional wake</strong> over a full 400-step trajectory:
-        isosurfaces of the Q-criterion (<em>Q</em><sup>*</sup>&nbsp;=&nbsp;<em>QD</em><sup>2</sup>/<em>U</em><sub>&infin;</sub><sup>2</sup>&nbsp;=&nbsp;1)
-        coloured by the non-dimensional velocity magnitude
-        &Vert;<strong>U</strong>&Vert;/<em>U</em><sub>&infin;</sub>.
-        Elliptical cross-section (<em>n</em>&nbsp;=&nbsp;2, <em>a/D</em>&nbsp;=&nbsp;1.46)
-        at <em>Re</em>&nbsp;=&nbsp;3101 and angle of attack <em>&alpha;</em>&nbsp;=&nbsp;31&deg;.
-      </p>
-
-      <div class="grid grid-2 video-grid teaser-grid">
-        <figure class="video-card">
-          <video autoplay muted loop playsinline controls preload="auto">
-            <source src="static/videos/Re3101_alpha31_a1p46_n2_u.mp4" type="video/mp4" />
-          </video>
-          <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
-        </figure>
-        <figure class="video-card">
-          <video autoplay muted loop playsinline controls preload="auto">
-            <source src="static/videos/Re3101_alpha31_a1p46_n2_p.mp4" type="video/mp4" />
-          </video>
-          <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
-        </figure>
-      </div>
-      <p class="caption">
-        <strong>Mid-span 2D slices</strong> of the streamwise velocity (left)
-        and pressure (right) from the same simulation. Each TurtLES trajectory
-        comprises 400 time steps of 3D wake dynamics sampled on irregular point
-        clouds with 3&ndash;11 million points per frame; the slices shown are
-        for visualisation only.
-      </p>
-    </div>
-  </section>
-
-  <main class="container content">
-
-    <section id="abstract">
-      <h2>Abstract</h2>
-      <p>
-        Machine-learning surrogates are increasingly used to accelerate computational
-        fluid dynamics, yet progress is limited by the lack of benchmarks capturing
-        realistic, time-dependent turbulent flows. We introduce <strong>TurtLES</strong>,
-        a 14&nbsp;TB dataset of 3D turbulent cylinder wakes in the shear-layer
-        transition regime, computed via high-fidelity implicit large-eddy simulations.
-        The dataset contains 400 trajectories of 400 time steps each, with
-        3&ndash;11 million points per frame, spanning variations in geometry,
-        Reynolds number, and angle of attack. Unlike existing datasets, TurtLES
-        combines (i) physically realistic turbulence with an active energy cascade
-        driven by vortex stretching, (ii) dense irregular meshes, and
-        (iii) long-horizon temporal dynamics. We benchmark state-of-the-art neural
-        operators on autoregressive rollouts and identify key failure modes,
-        including temporal instability, loss of small-scale energy, and challenges
-        in learning on large irregular domains. TurtLES provides a new benchmark
-        for evaluating surrogate models on 3D turbulent wakes at industrially
-        relevant mesh resolution.
-      </p>
-    </section>
-
-    <section id="highlights">
-      <h2>Key Properties</h2>
-      <div class="grid grid-4">
-        <div class="card">
-          <div class="stat">14 TB</div>
-          <div class="stat-label">High-fidelity 3D iLES data</div>
-        </div>
-        <div class="card">
-          <div class="stat">400</div>
-          <div class="stat-label">Trajectories &times; 400 time steps</div>
-        </div>
-        <div class="card">
-          <div class="stat">3&ndash;11 M</div>
-          <div class="stat-label">Points per frame, irregular mesh</div>
-        </div>
-        <div class="card">
-          <div class="stat">4-D</div>
-          <div class="stat-label">Parameter space (<em>a</em>, <em>n</em>, <em>Re</em>, <em>&alpha;</em>)</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contributions">
-      <h2>Contributions</h2>
-      <ol>
-        <li>
-          <strong>Dense irregular 3D data.</strong> Dynamic three-dimensional
-          flow on unstructured meshes with millions of points per frame, beyond
-          the resolution of regular-grid or coarse point-cloud benchmarks.
-        </li>
-        <li>
-          <strong>Long-horizon evaluation.</strong> Hundreds of autoregressive time
-          steps in chaotic, geometry-dependent wakes.
-        </li>
-        <li>
-          <strong>Physically grounded assessment.</strong> Turbulent surrogates
-          are scored on high-frequency quantities such as fluctuation statistics,
-          spanwise energy spectra, and per-case wake-probe spectra, in addition
-          to field-wise errors.
-        </li>
-      </ol>
-    </section>
-
-    <section id="dataset">
-      <h2>Dataset Overview</h2>
-      <figure>
-        <img src="static/images/overview.jpg" alt="Q-criterion isosurfaces of a TurtLES rectangle case in 3D, side and top view, next to one low- and one high-Reynolds-number case for each of the four shape families, above a summary of the dataset parameters." />
         <figcaption>
-          <strong>Figure 1.</strong> TurtLES visualised through Q-criterion
-          isosurfaces, coloured by velocity magnitude. Left: a rectangle at
+          Q-criterion isosurfaces (<em>Q</em><sup>*</sup>&nbsp;=&nbsp;1) coloured by
+          velocity magnitude over a full 400-step trajectory. Ellipse,
+          <em>Re</em>&nbsp;=&nbsp;3101, <em>&alpha;</em>&nbsp;=&nbsp;31&deg;,
+          <em>a/D</em>&nbsp;=&nbsp;1.46.
+        </figcaption>
+      </figure>
+    </div>
+
+    <dl class="stat-strip">
+      <div><dt>14 TB</dt><dd>high-fidelity iLES data</dd></div>
+      <div><dt>400</dt><dd>trajectories</dd></div>
+      <div><dt>400</dt><dd>time steps each</dd></div>
+      <div><dt>3&ndash;11 M</dt><dd>points per frame</dd></div>
+      <div><dt>4</dt><dd>shape families</dd></div>
+    </dl>
+  </header>
+
+  <main>
+
+    <!-- ============================== OVERVIEW ============================== -->
+    <section class="block" id="overview">
+      <div class="measure">
+        <p class="eyebrow">Overview</p>
+        <h2>At a glance</h2>
+        <ul class="tldr">
+          <li>
+            <span class="tldr-key">What</span>
+            <span>400 high-fidelity simulations of 3D turbulent wakes behind cylinders of
+            varying shape, Reynolds number and angle of attack. Each has 400 time steps
+            on an irregular mesh with 3&ndash;11 million points per frame.</span>
+          </li>
+          <li>
+            <span class="tldr-key">Why it&rsquo;s hard</span>
+            <span>Real 3D turbulence with an active energy cascade, dense irregular
+            meshes, and long time horizons, all in the same benchmark.</span>
+          </li>
+          <li>
+            <span class="tldr-key">What we found</span>
+            <span>Only one of four state-of-the-art neural operators stays stable over a
+            400-step rollout. Spectra expose lost or spurious small-scale energy, and the
+            best surrogate is only about 16&times; faster than the solver.</span>
+          </li>
+        </ul>
+
+        <details class="more">
+          <summary>Read the abstract</summary>
+          <div class="more-body prose">
+            <p>
+              Machine-learning surrogates are increasingly used to accelerate computational
+              fluid dynamics, yet progress is limited by the lack of benchmarks capturing
+              realistic, time-dependent turbulent flows. We introduce TurtLES, a 14&nbsp;TB
+              dataset of 3D turbulent cylinder wakes in the shear-layer transition regime,
+              computed via high-fidelity implicit large-eddy simulations. The dataset contains
+              400 trajectories of 400 time steps each, with 3&ndash;11 million points per frame,
+              spanning variations in geometry, Reynolds number, and angle of attack. Unlike
+              existing datasets, TurtLES combines (i) physically realistic turbulence with an
+              active energy cascade driven by vortex stretching, (ii) dense irregular meshes,
+              and (iii) long-horizon temporal dynamics. We benchmark state-of-the-art neural
+              operators on autoregressive rollouts and identify key failure modes, including
+              temporal instability, loss of small-scale energy, and challenges in learning on
+              large irregular domains. TurtLES provides a new benchmark for evaluating
+              surrogate models on 3D turbulent wakes at industrially relevant mesh resolution.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="wide">
+        <div class="grid-2 slice-grid">
+          <figure class="video-card">
+            <video muted loop playsinline preload="none" data-inview>
+              <source src="static/videos/Re3101_alpha31_a1p46_n2_u.mp4" type="video/mp4" />
+            </video>
+            <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
+          </figure>
+          <figure class="video-card">
+            <video muted loop playsinline preload="none" data-inview>
+              <source src="static/videos/Re3101_alpha31_a1p46_n2_p.mp4" type="video/mp4" />
+            </video>
+            <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
+          </figure>
+        </div>
+        <p class="caption">
+          Mid-span slices of the same simulation as the 3D view above. The dataset stores
+          the full 3D fields; slices are for visualisation only.
+        </p>
+      </div>
+
+      <div class="measure">
+        <h3>What existing benchmarks miss</h3>
+        <p class="prose-p">
+          Many &ldquo;dynamic fluid&rdquo; benchmarks are unsteady or chaotic without
+          containing 3D turbulence, where vortex stretching drives energy from large eddies
+          down to small ones. Others reach 3D and industrial scale but only at steady state,
+          or stay on coarse point clouds. TurtLES covers all of these axes at once.
+        </p>
+      </div>
+      <div class="wide">
+        <div class="table-wrap">
+          <table class="compare">
+            <thead>
+              <tr>
+                <th scope="col">Dataset</th>
+                <th scope="col">3D</th>
+                <th scope="col">Time-dependent</th>
+                <th scope="col">Irregular mesh</th>
+                <th scope="col">Geometry variation</th>
+                <th scope="col">Resolved 3D turbulence</th>
+                <th scope="col">Resolution per frame</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">The Well</th>
+                <td><span class="mark part">Partly</span></td>
+                <td><span class="mark yes">Yes</span></td>
+                <td><span class="mark no">No</span></td>
+                <td><span class="mark no">No</span></td>
+                <td><span class="mark part">Idealised only</span></td>
+                <td>&le;&nbsp;128&sup3; grid</td>
+              </tr>
+              <tr>
+                <th scope="row">DrivAerNet</th>
+                <td><span class="mark yes">Yes</span></td>
+                <td><span class="mark no">Steady state</span></td>
+                <td><span class="mark yes">Yes</span></td>
+                <td><span class="mark yes">Yes</span></td>
+                <td><span class="mark no">Modelled (RANS)</span></td>
+                <td>tens of millions of DoF</td>
+              </tr>
+              <tr>
+                <th scope="row">EAGLE</th>
+                <td><span class="mark no">2D</span></td>
+                <td><span class="mark yes">Yes</span></td>
+                <td><span class="mark yes">Yes</span></td>
+                <td><span class="mark yes">Yes</span></td>
+                <td><span class="mark no">No</span></td>
+                <td>~10&sup3; points</td>
+              </tr>
+              <tr class="row-us">
+                <th scope="row">TurtLES</th>
+                <td><span class="mark yes">Yes</span></td>
+                <td><span class="mark yes">400 steps</span></td>
+                <td><span class="mark yes">Yes</span></td>
+                <td><span class="mark yes">Yes</span></td>
+                <td><span class="mark yes">Yes (iLES)</span></td>
+                <td>3&ndash;11 M points</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="caption">Summary of the related-work comparison in the paper (Section 1&ndash;2).</p>
+      </div>
+    </section>
+
+    <!-- ============================== DATASET ============================== -->
+    <section class="block" id="dataset">
+      <div class="measure">
+        <p class="eyebrow">Dataset</p>
+        <h2>400 turbulent wakes across a four-parameter design space</h2>
+        <p class="prose-p">
+          Each case places a super-elliptic cylinder in a uniform inflow. Four parameters
+          define it: the shape family <em>n</em>, the half-length <em>a</em>, the Reynolds
+          number <em>Re</em>, and the angle of attack <em>&alpha;</em>. Across this range the
+          wake transitions to turbulence while the boundary layer stays laminar, so every
+          trajectory contains an active 3D energy cascade.
+        </p>
+      </div>
+
+      <figure class="wide fig">
+        <img class="zoomable" src="static/images/overview.jpg" alt="Q-criterion isosurfaces of a TurtLES rectangle case in 3D, side and top view, next to one low- and one high-Reynolds-number case for each of the four shape families, above a summary of the dataset parameters." />
+        <figcaption>
+          <strong>Four shape families, two Reynolds regimes.</strong> Left: a rectangle at
           <em>Re</em>&nbsp;=&nbsp;3571, <em>&alpha;</em>&nbsp;=&nbsp;25&deg;,
-          <em>a/D</em>&nbsp;=&nbsp;1.41 in 3D, side and top views. Right: one
-          low- and one high-<em>Re</em> case for each shape family. Bottom: the
-          dataset parameters.
+          <em>a/D</em>&nbsp;=&nbsp;1.41 in 3D, side and top views. Right: one low- and one
+          high-<em>Re</em> case per family. Click any figure to enlarge.
         </figcaption>
       </figure>
 
-      <p>
-        TurtLES is constructed within a four-dimensional parameter space. Geometry
-        is parameterised through the super-ellipse (Lam&eacute; curve)
-        |<em>x/a</em>|<sup><em>n</em></sup>&nbsp;+&nbsp;|<em>y/b</em>|<sup><em>n</em></sup>&nbsp;=&nbsp;1,
-        with the exponent <em>n&nbsp;&isin;&nbsp;{1,&nbsp;2,&nbsp;5,&nbsp;&infin;}</em>
-        selecting diamond, elliptical, rounded-rectangle and rectangular shapes.
-        The half-thickness is fixed at <em>b</em>&nbsp;=&nbsp;1/2, giving a constant
-        object thickness <em>D</em>&nbsp;=&nbsp;2<em>b</em>&nbsp;=&nbsp;1, while the
-        semi-axis <em>a</em> is sampled log-uniformly in [1/6,&nbsp;3/2], so that
-        aspect ratios span 1/3 to 3. The inflow is set by the Reynolds number
-        <em>Re&nbsp;&isin;&nbsp;[1000,&nbsp;3900]</em>, based on <em>D</em>, and the
-        angle of attack <em>&alpha;&nbsp;&isin;&nbsp;[0&deg;,&nbsp;45&deg;]</em>.
-        In this range the wake transitions to turbulence while the boundary layer
-        remains laminar. A Sobol&rsquo; sequence draws
-        <em>N<sub>s</sub></em>&nbsp;=&nbsp;400 samples that evenly cover the hypercube.
-      </p>
-      <figure>
-        <img src="static/images/parameter_space.png" alt="Parameter space overview: super-elliptical geometry definitions, the 400 Sobol samples in (Re, alpha, a/D), and histograms of each parameter." />
-        <figcaption>
-          <strong>Figure 2.</strong> Overview of the parameter sampling space.
-          (a) Definition of the super-elliptical geometry. (b) The
-          <em>N<sub>s</sub></em>&nbsp;=&nbsp;400 samples in three dimensions, with
-          projections on the coordinate planes in grey. (c&ndash;f) Histograms of
-          the sampled parameters. Colours for each value of <em>n</em> in (f)
-          match those in (a) and (b).
-        </figcaption>
-      </figure>
-
-      <p>
-        Each case is solved with a high-order Flux Reconstruction implicit LES
-        scheme implemented in PyFR, on a Gmsh-generated mesh whose 2D
-        <em>xy</em>-plane is extruded into 30 structured span-wise layers. Each
-        element holds 75&ndash;125 solution points, giving 2.9&nbsp;M to 10.5&nbsp;M
-        unique points per case within the stored region. The numerical setup is
-        validated against DNS and experimental data for four benchmark cases:
-        a circular cylinder at <em>Re</em>&nbsp;=&nbsp;1000 and 3900, a square
-        cylinder at <em>Re</em>&nbsp;=&nbsp;2000, and a 5:1 rectangle at
-        <em>Re</em>&nbsp;=&nbsp;3000.
-      </p>
-      <figure>
-        <img src="static/images/figure2_domain.png" alt="Schematic overview of the simulation domain: 3D view with labelled boundaries and the 2D mesh in the xy-plane." />
-        <figcaption>
-          <strong>Figure 3.</strong> Schematic overview of the domain.
-          (a) Three-dimensional view illustrating the physical boundaries:
-          inlet (<strong>A</strong>), outlets (<strong>B</strong>&ndash;<strong>D</strong>),
-          object surface (<strong>E</strong>), and periodic side-walls
-          (<strong>F</strong>, <strong>G</strong>). (b) <em>xy</em>-plane of the
-          computational mesh, extended into three dimensions via a structured
-          extrusion in the span-wise (<em>z</em>) direction.
-        </figcaption>
-      </figure>
-    </section>
-
-    <section id="data-structure">
-      <h2>Data Structure</h2>
-      <p>
-        Data collection starts only once the initial numerical transient has been
-        washed out. Each case then stores a single set of node coordinates plus
-        400 snapshots of the pressure <em>p</em>, density <em>&rho;</em>, and
-        velocity components (<em>u</em>, <em>v</em>, <em>w</em>), saved in HDF5
-        as one coordinate file and four temporal chunks of 100 frames. Snapshots
-        are restricted to nodes inside the box
-        <em>x/D</em>&nbsp;&isin;&nbsp;[&minus;3,&nbsp;10],
-        <em>y/D</em>&nbsp;&isin;&nbsp;[&minus;3.5,&nbsp;3.5],
-        <em>z/D</em>&nbsp;&isin;&nbsp;[0,&nbsp;2&pi;]. The sampling interval
-        <em>&Delta;t<sub>s</sub></em>&nbsp;=&nbsp;0.04732 (in units of <em>D/U</em>)
-        retains the inertial range of the turbulence spectrum; sub-sampling acts
-        in time only, so every snapshot keeps the full spatial resolution.
-      </p>
-      <p>
-        Each case directory also contains power spectra of the streamwise
-        (<em>u</em>) and cross-stream (<em>v</em>) velocity at three centreline
-        probes placed 2.5<em>D</em>, 3.5<em>D</em> and 4.5<em>D</em> behind the
-        object, together with the script used to compute them. These give
-        per-case evidence of the turbulent cascade and a physically grounded
-        target for evaluating surrogates.
-      </p>
-      <figure>
-        <img src="static/images/figure3_data_structure.jpg" alt="Diagram of a per-case directory: shared coordinates, 400 time-step solutions, and example renders of the u-velocity and pressure fields." />
-        <figcaption>
-          <strong>Figure 4.</strong> Overview of the flow case data structure.
-          Each case stores one set of coordinates and the solutions at 400
-          time steps (<em>t<sub>0</sub></em>, <em>t<sub>1</sub></em>, &hellip;,
-          <em>t<sub>f</sub></em>, with <em>t<sub>f</sub></em>&nbsp;=&nbsp;399).
-          A solution comprises the three-dimensional pressure (<em>p</em>),
-          density (<em>&rho;</em>), and velocity (<em>u</em>, <em>v</em>,
-          <em>w</em>) fields. Right: renders of <em>u</em> and <em>p</em> for
-          case <code>Re_3101_alpha31_a1p46_n2</code>.
-        </figcaption>
-      </figure>
-    </section>
-
-    <section id="gallery">
-      <h2>Flow Visualisations</h2>
-      <p>
-        For each shape family, one case is shown at low
-        (<em>Re</em>&nbsp;&le;&nbsp;1300) and one at high Reynolds number
-        (<em>Re</em>&nbsp;&gt;&nbsp;3000). At low <em>Re</em> the wake consists
-        of fewer, thicker and more coherent vortex tubes, whereas at high
-        <em>Re</em> it breaks up into a much denser field of fine-scale structures.
-      </p>
-      <figure class="figure-narrow">
-        <img src="static/images/wake_gallery.jpg" alt="Grid of eight TurtLES cases, two per shape family, each shown in 3D, side and top views of Q-criterion isosurfaces coloured by velocity magnitude." loading="lazy" />
-        <figcaption>
-          <strong>Figure 5.</strong> Eight TurtLES cases. For each case, 3D,
-          side and top views show isosurfaces of the Q-criterion
-          (<em>Q</em><sup>*</sup>&nbsp;=&nbsp;<em>QD</em><sup>2</sup>/<em>U</em><sub>&infin;</sub><sup>2</sup>&nbsp;=&nbsp;1)
-          at an instantaneous snapshot, coloured by the non-dimensional velocity
-          magnitude &Vert;<strong>U</strong>&Vert;/<em>U</em><sub>&infin;</sub>.
-        </figcaption>
-      </figure>
-    </section>
-
-    <section id="splits">
-      <h2>Splits and mini-TurtLES</h2>
-      <p>
-        Trajectories are split into fixed training, validation and test sets of
-        <strong>320 / 40 / 40</strong> cases, released with the dataset. Each shape
-        family holds 100 trajectories and is split exactly 80/10/10, and within
-        each family the assignment is optimised so that the distribution of
-        (<em>Re</em>, <em>&alpha;</em>, log&nbsp;<em>a</em>) in every subset matches
-        that of the full dataset. This yields an in-distribution interpolation
-        split; extrapolation splits (for example, holding out a whole shape family
-        or all cases above a Reynolds-number threshold) are straightforward to
-        build from the released data. A circular-cylinder reference case
-        (<em>Re</em>&nbsp;=&nbsp;1000, <em>a</em>&nbsp;=&nbsp;0.5,
-        <em>&alpha;</em>&nbsp;=&nbsp;0&deg;, <em>n</em>&nbsp;=&nbsp;2) is
-        distributed separately.
-      </p>
-      <figure>
-        <img src="static/images/split_coverage.png" alt="Projections of the sampled cases on the (Re, alpha), (Re, a) and (alpha, a) planes coloured by split, and a bar chart of shape-family fractions per split." loading="lazy" />
-        <figcaption>
-          <strong>Figure 6.</strong> Coverage of the parameter space by the
-          train/validation/test split: training cases in grey, validation as blue
-          squares and test as red triangles. Right: fraction of each subset
-          belonging to each shape family <em>n</em>.
-        </figcaption>
-      </figure>
-
-      <p>
-        To lower the barrier to entry, <strong>mini-TurtLES</strong> defines
-        standardised subsets that shrink the dataset along two independent axes.
-        <em>Geometry tiers</em> (G4&ndash;G1) drop shape families while keeping the
-        full range of <em>Re</em>, <em>&alpha;</em> and <em>a</em>;
-        <em>temporal tiers</em> (T100&ndash;T400) keep the first 100&ndash;400
-        snapshots of each trajectory. Tiers combine freely, for example G2-T200.
-        A 5&nbsp;GB <strong>TurtLES-debug</strong> subset, holding the first 100
-        snapshots of the reference circular-cylinder case, is provided for
-        installation checks and dataloader validation. All subsets are described
-        in the <code>miniturtles.md</code> file shipped with the dataset.
-      </p>
-      <div class="table-wrap">
-        <table class="results">
-          <caption><strong>Table 1.</strong> Approximate download size of each mini-TurtLES subset.</caption>
-          <thead>
-            <tr>
-              <th>Geometry tier</th><th>Families <em>n</em></th>
-              <th>T100</th><th>T200</th><th>T300</th><th>T400</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>G4</td><td>{1, 2, 5, &infin;}</td><td>3.5 TB</td><td>7.0 TB</td><td>10.5 TB</td><td>14 TB</td></tr>
-            <tr><td>G3</td><td>{1, 2, &infin;}</td><td>2.6 TB</td><td>5.1 TB</td><td>7.7 TB</td><td>10.2 TB</td></tr>
-            <tr><td>G2</td><td>{2, &infin;}</td><td>1.8 TB</td><td>3.6 TB</td><td>5.3 TB</td><td>7.1 TB</td></tr>
-            <tr><td>G1</td><td>{2}</td><td>0.8 TB</td><td>1.6 TB</td><td>2.4 TB</td><td>3.3 TB</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="benchmark">
-      <h2>Benchmarks</h2>
-      <p>
-        We evaluate four neural-operator baselines, UPT, GINO, Transolver++, and
-        CALM-PDE (with the scaling improvements of ECHO), on next-frame
-        prediction of <em>p</em>, <em>&rho;</em>, <em>u</em>, <em>v</em> and
-        <em>w</em>. All models are trained on the 320 training trajectories to
-        predict the residual between consecutive frames, conditioned on
-        <em>Re</em>, under a shared budget of 100k steps (about 20&nbsp;h on one
-        H100). At test time each model rolls out the full 399-step trajectory
-        from the initial condition alone. We report the relative
-        <em>L</em><sup>2</sup> error, the variance-scaled RMSE (VRMSE, where
-        predicting the per-frame spatial mean scores 1), the RMS log-power error
-        of spanwise energy spectra in low-, mid- and high-wavenumber bands, and
-        the GPU time to predict one full trajectory.
-      </p>
-
-      <div class="table-wrap">
-        <table class="results">
-          <caption><strong>Table 2.</strong> Next-frame results on the test set (lower is better). Spectral errors are RMS log-power discrepancies over low-, mid- and high-frequency spanwise wavenumber bands. Best value per column in bold.</caption>
-          <thead>
-            <tr>
-              <th rowspan="2">Model</th>
-              <th colspan="2">Field error</th>
-              <th colspan="3">Spectral error</th>
-            </tr>
-            <tr>
-              <th>Rel-<em>L</em><sup>2</sup></th><th>VRMSE</th>
-              <th>Low</th><th>Mid</th><th>High</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>UPT</td><td>7.01e-2</td><td>8.94e-2</td><td>4.69e-2</td><td><strong>2.33e-2</strong></td><td><strong>4.42e-2</strong></td></tr>
-            <tr><td>GINO</td><td>1.32e-1</td><td>1.21</td><td>1.32e-1</td><td>7.31e-2</td><td>4.48e-2</td></tr>
-            <tr><td>Transolver++</td><td>1.08e-1</td><td>1.06</td><td>8.02e-2</td><td>2.89e-2</td><td>4.41e-1</td></tr>
-            <tr><td>CALM-PDE</td><td><strong>6.80e-2</strong></td><td><strong>7.26e-2</strong></td><td><strong>4.66e-2</strong></td><td>2.38e-2</td><td>4.44e-2</td></tr>
-          </tbody>
-        </table>
+      <div class="measure">
+        <dl class="param-list">
+          <div>
+            <dt>Shape <em>n</em></dt>
+            <dd>{1, 2, 5, &infin;}: diamond, ellipse, rounded rectangle, rectangle (100 cases each)</dd>
+          </div>
+          <div>
+            <dt>Half-length <em>a/D</em></dt>
+            <dd>1/6 to 3/2, log-uniform (aspect ratio 1/3 to 3); thickness fixed at <em>D</em>&nbsp;=&nbsp;1</dd>
+          </div>
+          <div>
+            <dt>Reynolds number <em>Re</em></dt>
+            <dd>1000 to 3900, based on <em>D</em></dd>
+          </div>
+          <div>
+            <dt>Angle of attack <em>&alpha;</em></dt>
+            <dd>0&deg; to 45&deg;</dd>
+          </div>
+        </dl>
+        <p class="prose-p">
+          A Sobol&rsquo; sequence draws the 400 samples so that they cover the parameter
+          space evenly, without clusters or gaps.
+        </p>
       </div>
 
-      <div class="table-wrap">
-        <table class="results">
-          <caption><strong>Table 3.</strong> Rollout stability and computational cost. Rollout columns give VRMSE averaged over windows of rollout steps. Cost is the GPU time to generate (solver) or predict (surrogates) one full trajectory, i.e. wall-clock time &times; GPUs used (four for the solver, one per surrogate) on NVIDIA H100 80&nbsp;GB.</caption>
-          <thead>
-            <tr>
-              <th rowspan="2">Model</th>
-              <th colspan="4">Rollout VRMSE</th>
-              <th rowspan="2">Cost [GPU-s]</th>
-            </tr>
-            <tr>
-              <th>1&ndash;50</th><th>51&ndash;150</th><th>151&ndash;300</th><th>301&ndash;399</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="row-ref"><td>Solver (PyFR)</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>13160</td></tr>
-            <tr><td>UPT</td><td>6.51e-1</td><td>1.56</td><td>3.31</td><td>5.12</td><td><strong>835</strong></td></tr>
-            <tr><td>GINO</td><td>3.18</td><td>10.32</td><td>24.31</td><td>33.12</td><td>4097</td></tr>
-            <tr><td>Transolver++</td><td>2.33</td><td>8.32</td><td>19.33</td><td>31.24</td><td>1148</td></tr>
-            <tr><td>CALM-PDE</td><td><strong>4.61e-1</strong></td><td><strong>5.46e-1</strong></td><td><strong>6.52e-1</strong></td><td><strong>7.89e-1</strong></td><td>1073</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <figure>
-        <img src="static/images/spectral_fidelity.png" alt="Spanwise energy spectra of u for the reference, persistence, mean-field, UPT, Transolver++ and CALM-PDE, and the log-power discrepancy against wavenumber." loading="lazy" />
+      <figure class="wide fig">
+        <img class="zoomable" src="static/images/parameter_space.png" alt="Parameter space overview: super-elliptical geometry definitions, the 400 Sobol samples in (Re, alpha, a/D), and histograms of each parameter." loading="lazy" />
         <figcaption>
-          <strong>Figure 7.</strong> Spectral fidelity of autoregressive rollouts.
-          (a) Reference and predicted spanwise energy spectra averaged over test
-          trajectories. (b) Log-power discrepancy across wavenumbers.
+          <strong>Sampling the design space.</strong> (a) Super-elliptic geometries.
+          (b) The 400 samples, coloured by shape family. (c&ndash;f) Histograms of each parameter.
         </figcaption>
       </figure>
 
-      <p>The results expose four complementary failure modes:</p>
-      <ul>
-        <li>
-          <strong>Short-horizon error.</strong> Under the shared budget, CALM-PDE
-          and UPT reach the best next-frame accuracy, while Transolver++ and GINO
-          score a VRMSE at or above 1, no better than predicting the per-frame
-          spatial mean.
-        </li>
-        <li>
-          <strong>Long-horizon instability.</strong> CALM-PDE stays stable over
-          the full rollout (VRMSE 0.46 &rarr; 0.79), whereas UPT drifts to 5.1 and
-          Transolver++ and GINO exceed 30 in the final window.
-        </li>
-        <li>
-          <strong>Loss of small-scale fidelity.</strong> CALM-PDE tracks the
-          reference spectrum closely, UPT shows larger high-wavenumber errors,
-          and Transolver++ strongly over-predicts energy at intermediate and high
-          wavenumbers. A persistence baseline that repeats the initial state
-          also matches the time-averaged spectrum, so spectral agreement must be
-          read together with field-level and rollout errors.
-        </li>
-        <li>
-          <strong>Limited acceleration.</strong> Every surrogate is faster than
-          the solver in GPU-seconds, but only by about 3&times; (GINO) to
-          16&times; (UPT), a modest margin compared with speedups commonly
-          reported on smaller problems.
-        </li>
-      </ul>
-    </section>
+      <div class="measure">
+        <details class="more">
+          <summary>Simulation setup and validation</summary>
+          <div class="more-body prose">
+            <p>
+              Each case is solved with a high-order Flux Reconstruction implicit LES scheme
+              implemented in PyFR, at Mach 0.2 and Prandtl 0.71. The mesh is generated
+              automatically with Gmsh: a 2D <em>xy</em>-plane with structured near-wall
+              layers and an unstructured wake region, extruded into 30 structured span-wise
+              layers over a span of 2&pi;<em>D</em>. Each element holds 75&ndash;125 solution
+              points, giving 2.9&nbsp;M to 10.5&nbsp;M unique points per case in the stored region.
+            </p>
+            <figure class="fig">
+              <img class="zoomable" src="static/images/figure2_domain.png" alt="Schematic overview of the simulation domain: 3D view with labelled boundaries and the 2D mesh in the xy-plane." loading="lazy" />
+              <figcaption>
+                (a) Domain boundaries: inlet <strong>A</strong>, outlets
+                <strong>B</strong>&ndash;<strong>D</strong>, object surface <strong>E</strong>,
+                periodic side-walls <strong>F</strong>, <strong>G</strong>.
+                (b) The <em>xy</em>-plane of the mesh.
+              </figcaption>
+            </figure>
+            <p>
+              The setup is validated against DNS and experimental data for four benchmark
+              cases: a circular cylinder at <em>Re</em>&nbsp;=&nbsp;1000 and 3900, a square
+              cylinder at <em>Re</em>&nbsp;=&nbsp;2000, and a 5:1 rectangle at
+              <em>Re</em>&nbsp;=&nbsp;3000. Strouhal number, drag, recirculation length,
+              wake profiles and velocity spectra agree well with the literature; full
+              comparisons and a mesh-convergence study are in the paper&rsquo;s appendix.
+            </p>
+          </div>
+        </details>
+      </div>
 
-    <section id="limitations">
-      <h2>Limitations</h2>
-      <p>
-        TurtLES covers one physical regime: turbulent cylinder wakes in the
-        shear-layer transition range, and whether the observed failure modes
-        transfer to other geometries or Reynolds regimes remains open. The
-        reference trajectories come from implicit LES, so surrogate errors are
-        measured against this solver rather than against DNS or experiment.
-        Snapshots are sub-sampled in time to keep storage tractable, and the
-        resulting window is too short for converged averaged statistics such as
-        Reynolds stresses. The four baselines are a starting point, not an
-        exhaustive account of how neural operators perform on this class of flows.
-      </p>
-    </section>
+      <div class="measure">
+        <h3>What&rsquo;s in a case</h3>
+        <p class="prose-p">
+          Each case stores one set of node coordinates and 400 snapshots of five fields:
+          pressure <em>p</em>, density <em>&rho;</em>, and velocity <em>u</em>, <em>v</em>,
+          <em>w</em>. Snapshots start once the initial numerical transient has washed out,
+          and cover the box <em>x/D</em>&nbsp;&isin;&nbsp;[&minus;3,&nbsp;10],
+          <em>y/D</em>&nbsp;&isin;&nbsp;[&minus;3.5,&nbsp;3.5],
+          <em>z/D</em>&nbsp;&isin;&nbsp;[0,&nbsp;2&pi;].
+        </p>
+      </div>
 
-  </main>
+      <figure class="wide fig">
+        <img class="zoomable" src="static/images/figure3_data_structure.jpg" alt="Diagram of a per-case directory: shared coordinates, 400 time-step solutions, and example renders of the u-velocity and pressure fields." loading="lazy" />
+        <figcaption>
+          <strong>One coordinate set, 400 solutions.</strong> Right: renders of <em>u</em>
+          and <em>p</em> for case <code>Re_3101_alpha31_a1p46_n2</code>.
+        </figcaption>
+      </figure>
 
-  <section class="wide-section" id="catalogue">
-    <div class="wide-inner">
-      <h2 class="catalogue-heading">More Cases</h2>
-      <p class="catalogue-intro">
-        Additional simulation trajectories from the dataset. Each card shows
-        mid-span 2D slices of streamwise velocity (left) and pressure (right)
-        for one case. Use the arrows or swipe to navigate.
-      </p>
+      <div class="measure">
+        <details class="more">
+          <summary>Storage format, sampling interval and probe spectra</summary>
+          <div class="more-body prose">
+            <ul>
+              <li>
+                <strong>Format.</strong> HDF5: one coordinate file plus four temporal chunks
+                of 100 frames per trajectory.
+              </li>
+              <li>
+                <strong>Sampling interval.</strong> &Delta;<em>t<sub>s</sub></em>&nbsp;=&nbsp;0.04732
+                <em>D/U</em>, chosen to keep the inertial range of the turbulence spectrum.
+                Sub-sampling acts in time only, so every snapshot keeps the full spatial resolution.
+                For the circular cylinder, a trajectory spans about four vortex-shedding cycles.
+              </li>
+              <li>
+                <strong>Probe spectra.</strong> Each case also ships power spectra of
+                <em>u</em> and <em>v</em> at three centreline probes 2.5<em>D</em>,
+                3.5<em>D</em> and 4.5<em>D</em> behind the object, with the script used to
+                compute them. They give per-case evidence of the turbulent cascade and a
+                physical target for evaluating surrogates.
+              </li>
+            </ul>
+          </div>
+        </details>
+      </div>
 
-      <div class="catalogue">
-        <button type="button" class="cat-nav prev" aria-label="Previous case" disabled>&#x2039;</button>
-        <div class="cat-track" id="cat-track">
+      <div class="measure">
+        <h3>Wakes across shapes and Reynolds numbers</h3>
+        <p class="prose-p">
+          At low <em>Re</em> the wake is made of fewer, thicker and more coherent vortex
+          tubes. At high <em>Re</em> it breaks up into a much denser field of fine-scale
+          structures.
+        </p>
+      </div>
+      <figure class="fig fig-gallery">
+        <img class="zoomable" src="static/images/wake_gallery.jpg" alt="Grid of eight TurtLES cases, two per shape family, each shown in 3D, side and top views of Q-criterion isosurfaces coloured by velocity magnitude." loading="lazy" />
+        <figcaption>
+          <strong>Eight cases, three views each.</strong> Q-criterion isosurfaces
+          (<em>Q</em><sup>*</sup>&nbsp;=&nbsp;1) coloured by velocity magnitude.
+        </figcaption>
+      </figure>
 
-          <article class="cat-slide" data-case="Re3842_alpha36_a0p213_n1">
-            <header class="case-header">
-              <h3>Diamond, <em>n</em>&nbsp;=&nbsp;1</h3>
-              <p class="case-meta">
-                <em>Re</em>&nbsp;=&nbsp;3842 &middot;
-                <em>&alpha;</em>&nbsp;=&nbsp;36&deg; &middot;
-                <em>a/D</em>&nbsp;=&nbsp;0.213
-              </p>
-            </header>
-            <div class="grid grid-2 video-grid">
-              <figure class="video-card">
-                <video muted loop playsinline controls preload="metadata">
-                  <source src="static/videos/Re3842_alpha36_a0p213_n1_u.mp4" type="video/mp4" />
-                </video>
-                <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
-              </figure>
-              <figure class="video-card">
-                <video muted loop playsinline controls preload="metadata">
-                  <source src="static/videos/Re3842_alpha36_a0p213_n1_p.mp4" type="video/mp4" />
-                </video>
-                <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
-              </figure>
-            </div>
-          </article>
-
-          <article class="cat-slide" data-case="Re3129_alpha9_a1p063_n5">
-            <header class="case-header">
-              <h3>Rounded rectangle, <em>n</em>&nbsp;=&nbsp;5</h3>
-              <p class="case-meta">
-                <em>Re</em>&nbsp;=&nbsp;3129 &middot;
-                <em>&alpha;</em>&nbsp;=&nbsp;9&deg; &middot;
-                <em>a/D</em>&nbsp;=&nbsp;1.063
-              </p>
-            </header>
-            <div class="grid grid-2 video-grid">
-              <figure class="video-card">
-                <video muted loop playsinline controls preload="metadata">
-                  <source src="static/videos/Re3129_alpha9_a1p063_n5_u.mp4" type="video/mp4" />
-                </video>
-                <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
-              </figure>
-              <figure class="video-card">
-                <video muted loop playsinline controls preload="metadata">
-                  <source src="static/videos/Re3129_alpha9_a1p063_n5_p.mp4" type="video/mp4" />
-                </video>
-                <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
-              </figure>
-            </div>
-          </article>
-
-          <article class="cat-slide" data-case="Re3088_alpha3_a0p453_ninf">
-            <header class="case-header">
-              <h3>Rectangle, <em>n</em>&nbsp;=&nbsp;&infin;</h3>
-              <p class="case-meta">
-                <em>Re</em>&nbsp;=&nbsp;3088 &middot;
-                <em>&alpha;</em>&nbsp;=&nbsp;3&deg; &middot;
-                <em>a/D</em>&nbsp;=&nbsp;0.453
-              </p>
-            </header>
-            <div class="grid grid-2 video-grid">
-              <figure class="video-card">
-                <video muted loop playsinline controls preload="metadata">
-                  <source src="static/videos/Re3088_alpha3_a0p453_ninf_u.mp4" type="video/mp4" />
-                </video>
-                <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
-              </figure>
-              <figure class="video-card">
-                <video muted loop playsinline controls preload="metadata">
-                  <source src="static/videos/Re3088_alpha3_a0p453_ninf_p.mp4" type="video/mp4" />
-                </video>
-                <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
-              </figure>
-            </div>
-          </article>
-
+      <div class="wide explorer" id="explorer">
+        <h3>Explore more trajectories</h3>
+        <p class="caption-left">Mid-span slices of streamwise velocity and pressure, one case per tab.</p>
+        <div class="tabs" role="tablist" aria-label="Simulation cases">
+          <button role="tab" aria-selected="true" aria-controls="case-1" id="tab-1">
+            <span class="tab-shape">Diamond</span><span class="tab-meta"><em>Re</em> 3842 &middot; 36&deg;</span>
+          </button>
+          <button role="tab" aria-selected="false" aria-controls="case-2" id="tab-2" tabindex="-1">
+            <span class="tab-shape">Rounded rectangle</span><span class="tab-meta"><em>Re</em> 3129 &middot; 9&deg;</span>
+          </button>
+          <button role="tab" aria-selected="false" aria-controls="case-3" id="tab-3" tabindex="-1">
+            <span class="tab-shape">Rectangle</span><span class="tab-meta"><em>Re</em> 3088 &middot; 3&deg;</span>
+          </button>
         </div>
-        <button type="button" class="cat-nav next" aria-label="Next case" disabled>&#x203A;</button>
-      </div>
-    </div>
-  </section>
 
-  <div class="container content content-trailer">
-    <section id="bibtex">
-      <h2>Citation</h2>
-      <pre class="bibtex">@inproceedings{platenburg2026turtles,
+        <div class="tab-panel" role="tabpanel" id="case-1" aria-labelledby="tab-1">
+          <p class="case-meta">
+            Diamond, <em>n</em>&nbsp;=&nbsp;1 &middot; <em>Re</em>&nbsp;=&nbsp;3842 &middot;
+            <em>&alpha;</em>&nbsp;=&nbsp;36&deg; &middot; <em>a/D</em>&nbsp;=&nbsp;0.213
+          </p>
+          <div class="grid-2">
+            <figure class="video-card">
+              <video muted loop playsinline preload="none" data-inview>
+                <source src="static/videos/Re3842_alpha36_a0p213_n1_u.mp4" type="video/mp4" />
+              </video>
+              <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
+            </figure>
+            <figure class="video-card">
+              <video muted loop playsinline preload="none" data-inview>
+                <source src="static/videos/Re3842_alpha36_a0p213_n1_p.mp4" type="video/mp4" />
+              </video>
+              <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="case-2" aria-labelledby="tab-2" hidden>
+          <p class="case-meta">
+            Rounded rectangle, <em>n</em>&nbsp;=&nbsp;5 &middot; <em>Re</em>&nbsp;=&nbsp;3129 &middot;
+            <em>&alpha;</em>&nbsp;=&nbsp;9&deg; &middot; <em>a/D</em>&nbsp;=&nbsp;1.063
+          </p>
+          <div class="grid-2">
+            <figure class="video-card">
+              <video muted loop playsinline preload="none" data-inview>
+                <source src="static/videos/Re3129_alpha9_a1p063_n5_u.mp4" type="video/mp4" />
+              </video>
+              <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
+            </figure>
+            <figure class="video-card">
+              <video muted loop playsinline preload="none" data-inview>
+                <source src="static/videos/Re3129_alpha9_a1p063_n5_p.mp4" type="video/mp4" />
+              </video>
+              <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="case-3" aria-labelledby="tab-3" hidden>
+          <p class="case-meta">
+            Rectangle, <em>n</em>&nbsp;=&nbsp;&infin; &middot; <em>Re</em>&nbsp;=&nbsp;3088 &middot;
+            <em>&alpha;</em>&nbsp;=&nbsp;3&deg; &middot; <em>a/D</em>&nbsp;=&nbsp;0.453
+          </p>
+          <div class="grid-2">
+            <figure class="video-card">
+              <video muted loop playsinline preload="none" data-inview>
+                <source src="static/videos/Re3088_alpha3_a0p453_ninf_u.mp4" type="video/mp4" />
+              </video>
+              <figcaption><strong>Streamwise velocity</strong> <em>u</em></figcaption>
+            </figure>
+            <figure class="video-card">
+              <video muted loop playsinline preload="none" data-inview>
+                <source src="static/videos/Re3088_alpha3_a0p453_ninf_p.mp4" type="video/mp4" />
+              </video>
+              <figcaption><strong>Pressure</strong> <em>p</em></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== RESULTS ============================== -->
+    <section class="block" id="results">
+      <div class="measure">
+        <p class="eyebrow">Benchmark</p>
+        <h2>Where today&rsquo;s neural operators break</h2>
+        <p class="prose-p">
+          We train four neural operators, UPT, GINO, Transolver++ and CALM-PDE, to predict
+          the next frame of all five fields, then roll each one out autoregressively for 399
+          steps from the first frame alone. All four share the same training budget: 320
+          training trajectories, 100k steps, about 20 hours on one H100.
+        </p>
+      </div>
+
+      <div class="wide">
+        <div class="findings">
+          <article class="finding">
+            <p class="finding-num">1 of 4</p>
+            <h4>stays stable</h4>
+            <p>Over 400 steps, only CALM-PDE keeps its error below the mean-field level. The others drift to 5&ndash;33&times; that level.</p>
+          </article>
+          <article class="finding">
+            <p class="finding-num">2 of 4</p>
+            <h4>no better than the mean</h4>
+            <p>Even on the first frame, GINO and Transolver++ do no better than predicting each frame&rsquo;s spatial average.</p>
+          </article>
+          <article class="finding">
+            <p class="finding-num">Small scales</p>
+            <h4>lost or invented</h4>
+            <p>Energy spectra show UPT losing fine-scale fidelity and Transolver++ adding spurious small-scale energy.</p>
+          </article>
+          <article class="finding">
+            <p class="finding-num">&le; 16&times;</p>
+            <h4>faster than the solver</h4>
+            <p>At millions of points per frame, the speedup over the solver is modest, from about 3&times; to 16&times;.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="wide">
+        <div class="chart-row">
+          <div class="chart-card">
+            <h4 class="chart-title">Rollout error over 400 steps</h4>
+            <p class="chart-sub">VRMSE per rollout window, log scale. Above 1 means worse than predicting the spatial mean.</p>
+            <ul class="legend" aria-hidden="true">
+              <li><span class="key" style="--c: var(--s-upt)"></span>UPT</li>
+              <li><span class="key" style="--c: var(--s-gino)"></span>GINO</li>
+              <li><span class="key" style="--c: var(--s-tsv)"></span>Transolver++</li>
+              <li><span class="key" style="--c: var(--s-calm)"></span>CALM-PDE</li>
+            </ul>
+            <div class="chart" id="chart-rollout" role="img"
+                 aria-label="Line chart of rollout VRMSE over four windows. CALM-PDE rises from 0.46 to 0.79. UPT rises from 0.65 to 5.12. Transolver++ rises from 2.33 to 31.24. GINO rises from 3.18 to 33.12."></div>
+          </div>
+          <div class="chart-card">
+            <h4 class="chart-title">GPU time per trajectory</h4>
+            <p class="chart-sub">GPU-seconds to generate (solver) or predict (surrogate) one full trajectory on H100.</p>
+            <div class="chart" id="chart-cost" role="img"
+                 aria-label="Bar chart of GPU-seconds per trajectory: solver 13,160; GINO 4,097; Transolver++ 1,148; CALM-PDE 1,073; UPT 835."></div>
+          </div>
+        </div>
+      </div>
+
+      <figure class="wide fig">
+        <img class="zoomable" src="static/images/spectral_fidelity.png" alt="Spanwise energy spectra of u for the reference, persistence, mean-field, UPT, Transolver++ and CALM-PDE, and the log-power discrepancy against wavenumber." loading="lazy" />
+        <figcaption>
+          <strong>Spectral fidelity of rollouts.</strong> (a) Reference and predicted
+          span-wise energy spectra, averaged over test trajectories. (b) Log-power error per
+          wavenumber. A persistence baseline that repeats the first frame also matches the
+          average spectrum, so spectra must be read together with rollout error.
+        </figcaption>
+      </figure>
+
+      <div class="measure">
+        <details class="more">
+          <summary>Full results tables</summary>
+          <div class="more-body">
+            <div class="table-wrap">
+              <table class="results">
+                <caption>Next-frame results on the test set (lower is better). Spectral errors are RMS log-power discrepancies over low-, mid- and high-wavenumber span-wise bands. Best per column in bold.</caption>
+                <thead>
+                  <tr>
+                    <th rowspan="2" scope="col">Model</th>
+                    <th colspan="2" scope="colgroup">Field error</th>
+                    <th colspan="3" scope="colgroup">Spectral error</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">Rel-<em>L</em><sup>2</sup></th><th scope="col">VRMSE</th>
+                    <th scope="col">Low</th><th scope="col">Mid</th><th scope="col">High</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">UPT</th><td>0.0701</td><td>0.0894</td><td>0.0469</td><td><strong>0.0233</strong></td><td><strong>0.0442</strong></td></tr>
+                  <tr><th scope="row">GINO</th><td>0.132</td><td>1.21</td><td>0.132</td><td>0.0731</td><td>0.0448</td></tr>
+                  <tr><th scope="row">Transolver++</th><td>0.108</td><td>1.06</td><td>0.0802</td><td>0.0289</td><td>0.441</td></tr>
+                  <tr><th scope="row">CALM-PDE</th><td><strong>0.0680</strong></td><td><strong>0.0726</strong></td><td><strong>0.0466</strong></td><td>0.0238</td><td>0.0444</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-wrap">
+              <table class="results">
+                <caption>Rollout VRMSE per window of steps, and GPU time per trajectory (wall-clock &times; GPUs: four for the solver, one per surrogate) on NVIDIA H100 80&nbsp;GB.</caption>
+                <thead>
+                  <tr>
+                    <th rowspan="2" scope="col">Model</th>
+                    <th colspan="4" scope="colgroup">Rollout VRMSE</th>
+                    <th rowspan="2" scope="col">GPU-s</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">1&ndash;50</th><th scope="col">51&ndash;150</th><th scope="col">151&ndash;300</th><th scope="col">301&ndash;399</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row-ref"><th scope="row">Solver (PyFR)</th><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>13,160</td></tr>
+                  <tr><th scope="row">UPT</th><td>0.651</td><td>1.56</td><td>3.31</td><td>5.12</td><td><strong>835</strong></td></tr>
+                  <tr><th scope="row">GINO</th><td>3.18</td><td>10.32</td><td>24.31</td><td>33.12</td><td>4,097</td></tr>
+                  <tr><th scope="row">Transolver++</th><td>2.33</td><td>8.32</td><td>19.33</td><td>31.24</td><td>1,148</td></tr>
+                  <tr><th scope="row">CALM-PDE</th><td><strong>0.461</strong></td><td><strong>0.546</strong></td><td><strong>0.652</strong></td><td><strong>0.789</strong></td><td>1,073</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <details class="more">
+          <summary>Training and evaluation protocol</summary>
+          <div class="more-body prose">
+            <ul>
+              <li>
+                <strong>Task.</strong> Predict the residual between frames <em>t</em> and
+                <em>t</em>+1 from a single input frame, conditioned on <em>Re</em>, with an MSE
+                loss on the residual. Shape and angle are not given to the model.
+              </li>
+              <li>
+                <strong>Training.</strong> 320 training trajectories, 524,288 sampled nodes per
+                step, 100k steps at batch size 2, AdamW (lr 10<sup>&minus;4</sup>, weight decay
+                10<sup>&minus;3</sup>), 5k warm-up steps then cosine decay. No baseline received
+                extra tuning.
+              </li>
+              <li>
+                <strong>Evaluation.</strong> 40 test trajectories, each rolled out for 399
+                steps on the full mesh. Metrics are relative <em>L</em><sup>2</sup> error,
+                variance-scaled RMSE (VRMSE&nbsp;=&nbsp;1 matches predicting the per-frame
+                spatial mean), RMS log-power error of span-wise <em>u</em> spectra in low,
+                mid and high wavenumber bands, and GPU time per trajectory.
+              </li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============================== GET THE DATA ============================== -->
+    <section class="block" id="data">
+      <div class="measure">
+        <p class="eyebrow">Get the data</p>
+        <h2>Splits and smaller subsets</h2>
+        <p class="prose-p">
+          Trajectories come pre-split into <strong>320 training, 40 validation and 40
+          test</strong> cases. Every shape family is split exactly 80/10/10, and the
+          assignment is optimised so that each subset covers the same range of
+          <em>Re</em>, <em>&alpha;</em> and <em>a</em> as the full dataset.
+          A circular-cylinder reference case (<em>Re</em>&nbsp;=&nbsp;1000,
+          <em>&alpha;</em>&nbsp;=&nbsp;0&deg;) is distributed separately.
+        </p>
+      </div>
+
+      <figure class="wide fig">
+        <img class="zoomable" src="static/images/split_coverage.png" alt="Projections of the sampled cases on the (Re, alpha), (Re, a) and (alpha, a) planes coloured by split, and a bar chart of shape-family fractions per split." loading="lazy" />
+        <figcaption>
+          <strong>Every split covers the full parameter space.</strong> Training in grey,
+          validation as blue squares, test as red triangles. Right: share of each shape
+          family per split.
+        </figcaption>
+      </figure>
+
+      <div class="measure">
+        <h3>Pick a mini-TurtLES subset</h3>
+        <p class="prose-p">
+          The full dataset is 14&nbsp;TB. mini-TurtLES defines fixed, named subsets so
+          results from different labs stay comparable: drop shape families, keep fewer
+          snapshots, or both.
+        </p>
+
+        <div class="picker" id="picker">
+          <div class="picker-controls">
+            <fieldset>
+              <legend>Shape families</legend>
+              <label><input type="radio" name="geo" value="G4" checked /> <span>G4 &middot; all four</span></label>
+              <label><input type="radio" name="geo" value="G3" /> <span>G3 &middot; no rounded rect.</span></label>
+              <label><input type="radio" name="geo" value="G2" /> <span>G2 &middot; ellipse + rectangle</span></label>
+              <label><input type="radio" name="geo" value="G1" /> <span>G1 &middot; ellipse only</span></label>
+            </fieldset>
+            <fieldset>
+              <legend>Snapshots per trajectory</legend>
+              <label><input type="radio" name="time" value="T100" /> <span>T100 &middot; first 100</span></label>
+              <label><input type="radio" name="time" value="T200" /> <span>T200 &middot; first 200</span></label>
+              <label><input type="radio" name="time" value="T300" /> <span>T300 &middot; first 300</span></label>
+              <label><input type="radio" name="time" value="T400" checked /> <span>T400 &middot; all 400</span></label>
+            </fieldset>
+          </div>
+          <div class="picker-result" aria-live="polite">
+            <p class="picker-name" id="picker-name">G4-T400</p>
+            <p class="picker-size" id="picker-size">&asymp; 14 TB</p>
+            <p class="picker-detail" id="picker-detail">400 trajectories &times; 400 snapshots</p>
+          </div>
+        </div>
+        <p class="note">
+          Need something tiny? <strong>TurtLES-debug</strong> (&asymp;&nbsp;5&nbsp;GB) holds the
+          first 100 snapshots of the reference circular-cylinder case, for installation
+          checks and dataloader tests. All subsets are described in
+          <code>miniturtles.md</code> on the
+          <a href="https://huggingface.co/datasets/turtlesprojectml/turtles" target="_blank" rel="noopener noreferrer">Hugging Face dataset page</a>.
+        </p>
+
+        <h3>Download</h3>
+        <!-- PLACEHOLDER: replace this block with the download script once it is available. -->
+        <div class="placeholder-card">
+          <div class="code-head">
+            <span class="code-file">download_turtles.py</span>
+            <span class="badge">Coming soon</span>
+          </div>
+          <pre class="code"><code># A ready-to-use Python download script will be published here.
+# In the meantime, the dataset is available on Hugging Face:
+#   https://huggingface.co/datasets/turtlesprojectml/turtles</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== LIMITATIONS ============================== -->
+    <section class="block" id="limitations">
+      <div class="measure">
+        <p class="eyebrow">Scope</p>
+        <h2>Limitations</h2>
+        <ul class="prose limits">
+          <li>One physical regime: turbulent cylinder wakes in the shear-layer transition range. Whether the failure modes transfer to other geometries or Reynolds numbers is open.</li>
+          <li>The reference is implicit LES, so surrogate errors are measured against this solver rather than DNS or experiment.</li>
+          <li>Snapshots are sub-sampled in time. The trajectory window is too short for converged averaged statistics such as Reynolds stresses.</li>
+          <li>The four baselines are a starting point, not an exhaustive survey of neural operators on this class of flows.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================== CITE ============================== -->
+    <section class="block" id="cite">
+      <div class="measure">
+        <p class="eyebrow">Cite</p>
+        <h2>BibTeX</h2>
+        <div class="code-block">
+          <button type="button" class="copy-btn" data-copy="#bibtex-text">Copy</button>
+          <pre class="code" id="bibtex-text"><code>@inproceedings{platenburg2026turtles,
   title     = {{TurtLES}: A Large-Scale Benchmark for Turbulent {3D} Neural {PDE} Surrogates},
   author    = {Platenburg, Jarno and Kassa{\"\i} Koupa{\"\i}, Armand and Cinnella, Paola and Gallinari, Patrick},
   booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Track on Evaluations and Datasets},
   year      = {2026}
-}</pre>
+}</code></pre>
+        </div>
+
+        <h3 class="ack-title">Acknowledgements</h3>
+        <p class="small">
+          We acknowledge the financial support provided by DEEPNUM (ANR-21-CE23-0017-02),
+          PHLUSIM (ANR-23-CE23-0025-02), MELISSA (ANR-24-CE23-7140-01), PEPR Sharp
+          (ANR-23-PEIA0008, ANR, FRANCE 2030), and cluster IA PostGenAI@Paris
+          (ANR-23-IACL-0007). This project was provided with computer and storage resources
+          by GENCI at IDRIS thanks to the grants 2026-AD011016890R2, 2026-AD011017368,
+          2025-A0191016890 and 2026-A0211016890 on the supercomputer Jean Zay&rsquo;s
+          V100/A100/H100 partitions.
+        </p>
+      </div>
     </section>
 
-    <section id="acknowledgements">
-      <h2>Acknowledgements</h2>
-      <p class="small">
-        We acknowledge the financial support provided by DEEPNUM
-        (ANR-21-CE23-0017-02), PHLUSIM (ANR-23-CE23-0025-02), MELISSA
-        (ANR-24-CE23-7140-01), PEPR Sharp (ANR-23-PEIA0008, ANR, FRANCE 2030),
-        and cluster IA PostGenAI@Paris (ANR-23-IACL-0007). This project was
-        provided with computer and storage resources by GENCI at IDRIS thanks to
-        the grants 2026-AD011016890R2, 2026-AD011017368, 2025-A0191016890 and
-        2026-A0211016890 on the supercomputer Jean Zay&rsquo;s V100/A100/H100
-        partitions.
-      </p>
-    </section>
-  </div>
+  </main>
 
   <footer>
-    <div class="container">
-      <p>
-        TurtLES &middot; NeurIPS 2026, Track on Evaluations and Datasets
-      </p>
-    </div>
+    <p>TurtLES &middot; NeurIPS 2026, Track on Evaluations and Datasets</p>
   </footer>
 
-  <script>
-    (function () {
-      var track = document.getElementById('cat-track');
-      if (!track) return;
-      var prev = document.querySelector('.cat-nav.prev');
-      var next = document.querySelector('.cat-nav.next');
-      var slides = track.querySelectorAll('.cat-slide');
+  <dialog class="lightbox" id="lightbox" aria-label="Enlarged figure">
+    <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
+    <img alt="" />
+  </dialog>
 
-      function step() { return track.clientWidth + 24; }
+  <div class="chart-tip" id="chart-tip" role="tooltip" hidden></div>
 
-      function update() {
-        var max = track.scrollWidth - track.clientWidth - 1;
-        prev.disabled = track.scrollLeft <= 1;
-        next.disabled = track.scrollLeft >= max || slides.length < 2;
-      }
-
-      prev.addEventListener('click', function () {
-        track.scrollBy({ left: -step(), behavior: 'smooth' });
-      });
-      next.addEventListener('click', function () {
-        track.scrollBy({ left: step(), behavior: 'smooth' });
-      });
-      track.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
-      update();
-    })();
-  </script>
+  <script src="static/js/main.js" defer></script>
 </body>
 </html>
