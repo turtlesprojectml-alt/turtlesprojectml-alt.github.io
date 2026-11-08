@@ -473,19 +473,20 @@ python download_turtles.py TurtLES-debug
 python download_turtles.py TurtLES-G1T100 --dir data/turtles
 python download_turtles.py Re1089_alpha12_a1p302_n2</code></pre>
             </div>
-            <ul class="dl-notes">
-              <li><strong>TurtLES-debug</strong> (&asymp;&nbsp;5&nbsp;GB): the first 100 snapshots of the reference case, for installation checks.</li>
-              <li>A case name such as <code>Re1089_alpha12_a1p302_n2</code> fetches one full trajectory.</li>
-              <li>Options: <code>--split test</code> for some splits only, <code>--with-vtu</code> for ParaView mesh templates, <code>--yes</code> for batch jobs.</li>
-              <li>Files already on disk are skipped, so an interrupted download resumes and moving up a tier only fetches the difference.</li>
-            </ul>
-            <p class="note">
-              With the <a href="https://github.com/itsakk/TurtLES" target="_blank" rel="noopener noreferrer">TurtLES package</a> installed,
-              <code>turtles-data download --subset G1-T100</code> does the same. Full details are on the
-              <a href="https://huggingface.co/datasets/turtlesprojectml/turtles" target="_blank" rel="noopener noreferrer">dataset page</a>.
-            </p>
           </div>
         </div>
+
+        <ul class="dl-tips">
+          <li><strong>Debug subset</strong><span><code>TurtLES-debug</code> (&asymp;&nbsp;5&nbsp;GB) holds the first 100 snapshots of the reference case, for installation checks.</span></li>
+          <li><strong>One trajectory</strong><span>Pass a case name such as <code>Re1089_alpha12_a1p302_n2</code> to fetch all 400 snapshots of that case.</span></li>
+          <li><strong>Options</strong><span><code>--split test</code> for some splits only, <code>--with-vtu</code> for ParaView mesh templates, <code>--yes</code> for batch jobs.</span></li>
+          <li><strong>Resumable</strong><span>Files already on disk are skipped, so a stopped download resumes and a larger tier only fetches the difference.</span></li>
+        </ul>
+        <p class="note dl-package">
+          With the <a href="https://github.com/itsakk/TurtLES" target="_blank" rel="noopener noreferrer">TurtLES package</a> installed,
+          <code>turtles-data download --subset G1-T100</code> does the same. Full details are on the
+          <a href="https://huggingface.co/datasets/turtlesprojectml/turtles" target="_blank" rel="noopener noreferrer">dataset page</a>.
+        </p>
       </div>
     </section>
 
