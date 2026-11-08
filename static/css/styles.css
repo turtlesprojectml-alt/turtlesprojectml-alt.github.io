@@ -726,6 +726,7 @@ table.compare thead .col-us { color: var(--accent-ink); }
   padding: 16px;
   background: var(--surface);
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 14px;
 }
 
@@ -828,30 +829,26 @@ pre.code code { background: none; border: 0; padding: 0; font-size: inherit; col
 
 .copy-btn:hover { background: rgba(255,255,255,.16); }
 
-.placeholder-card {
-  border: 1px dashed var(--border-strong);
-  border-radius: 14px;
-  padding: 10px;
-  background: var(--bg-soft);
+pre.code .c { color: #8b949e; }
+
+.picker-cmd { min-width: 0; }
+.picker-cmd pre.code { padding: 12px 84px 12px 16px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.picker-cmd .copy-btn { top: 50%; transform: translateY(-50%); }
+
+#download-text { padding-right: 18px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.dl-notes code, .note code { white-space: nowrap; }
+.code-block:has(#download-text) pre.code { padding-top: 44px; }
+
+.dl-notes {
+  margin: 16px 0 0;
+  padding-left: 18px;
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.55;
 }
 
-.code-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2px 6px 10px;
-}
-
-.code-file { font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
-
-.badge {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--part);
-  background: var(--part-soft);
-  padding: 3px 9px;
-  border-radius: 999px;
-}
+.dl-notes li { margin-bottom: 6px; }
+.dl-notes strong { color: var(--fg); }
 
 /* ---------- Lightbox ---------- */
 

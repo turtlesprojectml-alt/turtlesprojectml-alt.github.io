@@ -102,7 +102,9 @@
   function updatePicker() {
     var g = picker.querySelector('input[name="geo"]:checked').value;
     var t = picker.querySelector('input[name="time"]:checked').value;
-    document.getElementById('picker-name').textContent = g + '-' + t;
+    var name = g === 'G4' && t === 'T400' ? 'TurtLES-full' : 'TurtLES-' + g + t;
+    document.getElementById('picker-name').textContent = 'TurtLES-' + g + t;
+    document.querySelector('#picker-cmd code').textContent = 'python download_turtles.py ' + name;
     document.getElementById('picker-size').textContent = '≈ ' + SIZES[g][t];
     document.getElementById('picker-detail').textContent =
       (FAMILIES[g] * 100) + ' trajectories × ' + t.slice(1) + ' snapshots';

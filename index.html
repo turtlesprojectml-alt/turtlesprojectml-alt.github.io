@@ -442,31 +442,46 @@
                 </fieldset>
               </div>
               <div class="picker-result" aria-live="polite">
-                <p class="picker-name" id="picker-name">G4-T400</p>
+                <p class="picker-name" id="picker-name">TurtLES-G4T400</p>
                 <p class="picker-size" id="picker-size">&asymp; 14 TB</p>
                 <p class="picker-detail" id="picker-detail">400 trajectories &times; 400 snapshots</p>
+              </div>
+              <div class="code-block picker-cmd">
+                <button type="button" class="copy-btn" data-copy="#picker-cmd">Copy</button>
+                <pre class="code" id="picker-cmd"><code>python download_turtles.py TurtLES-G4T400</code></pre>
               </div>
             </div>
           </div>
 
           <div>
             <h3>Download</h3>
-            <!-- PLACEHOLDER: replace this block with the download script once it is available. -->
-            <div class="placeholder-card">
-              <div class="code-head">
-                <span class="code-file">download_turtles.py</span>
-                <span class="badge">Coming soon</span>
-              </div>
-              <pre class="code"><code># A ready-to-use Python download script
-# will be published here.
-#
-# Meanwhile, the dataset is on Hugging Face:
-# huggingface.co/datasets/turtlesprojectml/turtles</code></pre>
+            <p class="note-text">
+              One Python script fetches any subset, a single trajectory, or the whole dataset
+              from Hugging Face. It only needs <code>huggingface_hub</code>.
+            </p>
+            <div class="code-block">
+              <button type="button" class="copy-btn" data-copy="#download-text">Copy</button>
+              <pre class="code" id="download-text"><code><span class="c"># 1. Get the script (Python &ge; 3.9)</span>
+pip install -U huggingface_hub
+curl -O https://raw.githubusercontent.com/itsakk/TurtLES/main/scripts/download_turtles.py
+
+<span class="c"># 2. List every subset with its exact size</span>
+python download_turtles.py --list
+
+<span class="c"># 3. Download</span>
+python download_turtles.py TurtLES-debug
+python download_turtles.py TurtLES-G1T100 --dir data/turtles
+python download_turtles.py Re1089_alpha12_a1p302_n2</code></pre>
             </div>
+            <ul class="dl-notes">
+              <li><strong>TurtLES-debug</strong> (&asymp;&nbsp;5&nbsp;GB): the first 100 snapshots of the reference case, for installation checks.</li>
+              <li>A case name such as <code>Re1089_alpha12_a1p302_n2</code> fetches one full trajectory.</li>
+              <li>Options: <code>--split test</code> for some splits only, <code>--with-vtu</code> for ParaView mesh templates, <code>--yes</code> for batch jobs.</li>
+              <li>Files already on disk are skipped, so an interrupted download resumes and moving up a tier only fetches the difference.</li>
+            </ul>
             <p class="note">
-              <strong>TurtLES-debug</strong> (&asymp;&nbsp;5&nbsp;GB) holds the first 100
-              snapshots of a reference circular cylinder (<em>Re</em>&nbsp;=&nbsp;1000) for
-              installation checks. Every subset is described in <code>miniturtles.md</code> on the
+              With the <a href="https://github.com/itsakk/TurtLES" target="_blank" rel="noopener noreferrer">TurtLES package</a> installed,
+              <code>turtles-data download --subset G1-T100</code> does the same. Full details are on the
               <a href="https://huggingface.co/datasets/turtlesprojectml/turtles" target="_blank" rel="noopener noreferrer">dataset page</a>.
             </p>
           </div>
